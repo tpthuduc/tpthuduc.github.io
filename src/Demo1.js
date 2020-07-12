@@ -1,11 +1,9 @@
 import React from 'react';
 import Home from './components/Home';
-import HideOnScroll from './components/Home'
 class Demo1 extends React.Component {
   render() {
     return (
       <div>
-     
         <Home/>
 
       </div>

@@ -1,43 +1,45 @@
 import React from 'react';
-import { withStyles } from "@material-ui/core/styles";
 import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import NewsCard from './news_card'
 import axios from 'axios';
+import Container from '@material-ui/core/Container';
+import BaseNewsGrid from './base_news_grid'
 
-class NewsGridList extends React.Component {
+const styles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1
+    }
+  }));
 
-    constructor(props) {
-        super(props);
-      }
+class NewsGridList extends BaseNewsGrid {
 
     state = {
-        news: [],
-        spacing :2
+        data: []
     }
 
-    styles = withStyles((theme) => ({
-        root: {
-            flexGrow: 1,
-            marginTop: 10
-        }
-    }));
+    gridSpacing = 2
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/post`)
+        axios.get(`http://localhost:4000/api/news`)
             .then(res => {
                 const news = res.data;
-                this.setState({ news });
+                this.setState(
+                    {
+                        data: news,
+                    })
             })
     }
 
     render() {
-
+        console.log(this.state.news)
         return (
-            <Grid container className={this.styles.root} spacing={this.state.spacing}>
+            <Container>
+            <Grid container className={this.props.root} spacing={this.state.spacing}>
                 <Grid item xs={12}>
-                    <Grid container spacing={this.state.spacing} justify="center" >
-                        {this.state.news.map((e) => (
+                    <Grid container spacing={this.gridSpacing} justify="center" >
+                        {this.state.data.map((e) => (
                             <Grid key={e._id} item>
                                 <NewsCard data={e} />
                             </Grid>
@@ -45,8 +47,10 @@ class NewsGridList extends React.Component {
                     </Grid>
                 </Grid>
             </Grid>
+            </Container>
+
         );
     }
 }
 
-export default NewsGridList;
+export default withStyles(styles, { withTheme: true })(NewsGridList)

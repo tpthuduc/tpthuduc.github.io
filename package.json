@@ -14,6 +14,7 @@
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.1",
+    "react-data-grid": "^7.0.0-canary.17",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
@@ -37,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoresponsive-react": "^1.1.31"
   }
 }

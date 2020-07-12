@@ -6,12 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
-import { colors } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: '#ffffffBB',
+        backgroundColor: '#F5F7F9CC',
         alternateTextColor: '#000000',
         color: '#000000'
     }
@@ -46,10 +46,12 @@ export default function HideAppBar(props) {
     <React.Fragment>
       <CssBaseline />
       <HideOnScroll {...props}>
-        <AppBar className={classes.root} elevation={0}>
+        <AppBar className={classes.root} elevation={0} >
+          <Box >
           <Toolbar>
             <Typography variant="h6">Ali News</Typography>
           </Toolbar>
+          </Box>
         </AppBar>
       </HideOnScroll>
       <Toolbar />

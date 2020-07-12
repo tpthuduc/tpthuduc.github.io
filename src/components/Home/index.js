@@ -1,11 +1,11 @@
 import React from 'react';
-import News from './data'
 import NewsGridList from './news_grid';
-import HideAppBar from './header_bar'
+import HideAppBar from './header_bar';
+import NewsResponsiveGrid from './news_responsive_grid'
 
 function Home() {
   return (
-    <div style ={{backgroundColor: '#fff'}}>
+    <div style ={{backgroundColor: '#F5F7F9'}}>
       {/* <News></News> */}
       <HideAppBar/>
       <NewsGridList/>
