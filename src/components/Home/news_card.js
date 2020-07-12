@@ -46,6 +46,10 @@ export default function MediaCard(props) {
     setOpen(false);
   };
 
+  const handleShare =() => {
+    window.location.href=props.data.Source
+  }
+
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
     if (open) {
@@ -75,12 +79,10 @@ export default function MediaCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={handleClickOpen}>
             Đọc
         </Button>
-          <Button size="small" color="primary">
-            Chia sẻ
-        </Button>
+
         </CardActions>
       </Card>
       <Dialog
@@ -109,7 +111,7 @@ export default function MediaCard(props) {
           <Button onClick={handleClose} color="primary">
             Đóng
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleShare} color="primary">
             Xem bài gốc
           </Button>
         </DialogActions>
