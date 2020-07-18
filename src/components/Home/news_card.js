@@ -15,8 +15,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ModalBody from './modal_body'
+import CircularIndeterminate from '../base/progress_bar'
 
 import Slide from '@material-ui/core/Slide';
+
+import NewsApi from '../../api/News.js'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -31,15 +34,21 @@ const useStyles = makeStyles({
   },
 });
 
+
 export default function MediaCard(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
+  const [contentAvailable, setContentAvailable] = React.useState(false)
+  const [data, setData] = React.useState(props.data)
 
-  const handleClickOpen = (scrollType) => () => {
+  const api = new NewsApi()
+
+  const handleClickOpen = (scrollType, props) => () => {
     setOpen(true);
     setScroll(scrollType);
+    loadFeedDetail(props)
   };
 
   const handleClose = () => {
@@ -47,7 +56,19 @@ export default function MediaCard(props) {
   };
 
   const handleShare =() => {
-    window.location.href=props.data.Source
+    window.location.href = data.source
+  }
+
+  const loadFeedDetail = (props) => {
+    if(!data.content) {
+    api.loadFeedDetail(data._id).then(res => {
+      console.log("detail :")
+      console.log(res)
+      setData(res)
+      setContentAvailable(true)
+    })
+  }
+  
   }
 
   const descriptionElementRef = React.useRef(null);
@@ -62,19 +83,19 @@ export default function MediaCard(props) {
 
   return (
     <div>
-      <Card className={classes.root} onClick={handleClickOpen('body')}>
+      <Card className={classes.root} onClick={handleClickOpen('body', props)}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://img.vtcnew.com.vn/resize/th/upload/2020/07/12/doan-van-hau-11172715.jpg"
-            title={props.data.Title}
+            image={data.thumbnail}
+            title={data.title}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.data.Title ? props.data.Title : "Bài viết không có tiêu đề"}
+              {data.title ? data.title : "Bài viết không có tiêu đề"}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {props.data.Summary ? props.data.Summary : "Nhấn để xem chi tiết"}
+              {data.summary ? data.summary : "Nhấn để xem chi tiết"}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -95,7 +116,7 @@ export default function MediaCard(props) {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">{props.data.Title}</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">{data.title}</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
           <DialogContentText
             id="scroll-dialog-description"
@@ -103,7 +124,7 @@ export default function MediaCard(props) {
             tabIndex={-1}
           >
             <Container>
-              <ModalBody content={props.data.Content} />
+              {(!contentAvailable) ? <CircularIndeterminate/> : <ModalBody content={data.content} />}
             </Container>
           </DialogContentText>
         </DialogContent>
