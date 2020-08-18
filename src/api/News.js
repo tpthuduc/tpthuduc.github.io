@@ -3,7 +3,8 @@ import AppUtils from "../util/AppUtils"
 class NewsApi {
     appApi = new AppUtils()
     constructor(params) {
-        this.appApi.baseUrl = 'http://localhost:4000/api'
+        // this.appApi.baseUrl = 'http://localhost:4000/api'
+        this.appApi.baseUrl = 'http://54.169.227.141:4000/api'
     }
 
     async loadFeed() {
