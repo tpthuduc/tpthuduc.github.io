@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-var baseUrl = 'http://localhost:4000/api'
+// var baseUrl = 'http://localhost:4000/api'
+var baseUrl = 'http://54.169.227.141:4000/api'
 
 class AppUtil {
     async loadApi(endPoint) {
