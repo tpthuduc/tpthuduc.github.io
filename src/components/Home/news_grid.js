@@ -6,7 +6,6 @@ import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import AutoResponsive from 'autoresponsive-react';
 import Container from '@material-ui/core/Container';
-import config from '../../config';
 
 class NewsGridList extends React.Component {
 
@@ -74,7 +73,7 @@ class NewsGridList extends React.Component {
 
     fetchData = () => {
         console.log("fetching data")
-        let url =   config.news.URL + `?per_page=40`
+        let url =   process.env.REACT_APP_NEWS_URL + `?per_page=40`
         const _loadMore = true;
         let _page = this.state.page;
         if (_loadMore) {

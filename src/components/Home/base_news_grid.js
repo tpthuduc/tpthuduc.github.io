@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import config from '../../config';
+
 class BaseNewsGrid extends React.Component {
 
     state = {
@@ -8,7 +8,7 @@ class BaseNewsGrid extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(config.news.URL)
+        axios.get(process.env.REACT_APP_NEWS_URL)
             .then(res => {
                 const news = res.data;
                 var s = news.Content;

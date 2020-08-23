@@ -1,11 +1,10 @@
 import AppUtils from "../util/AppUtils"
-import config from "../config"
 
 class NewsApi {
     appApi = new AppUtils()
     constructor(params) {
         // this.appApi.baseUrl = 'http://localhost:4000/api'
-        this.appApi.baseUrl = config.apiGateway
+        this.appApi.baseUrl = process.env.API_URL
     }
 
     async loadFeed() {
