@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '../config';
 
 // var baseUrl = 'http://localhost:4000/api'
-var baseUrl = 'http://54.169.227.141:4000/api'
+var baseUrl = config.apiGateway
 
 class AppUtil {
     async loadApi(endPoint) {
