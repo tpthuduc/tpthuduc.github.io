@@ -74,7 +74,7 @@ class NewsGridList extends React.Component {
 
     fetchData = () => {
         console.log("fetching data")
-        let url =   config.news.URL + `per_page=40`
+        let url =   config.news.URL + `?per_page=40`
         const _loadMore = true;
         let _page = this.state.page;
         if (_loadMore) {
