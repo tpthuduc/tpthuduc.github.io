@@ -62,7 +62,7 @@ export default function MediaCard(props) {
   const loadFeedDetail = (props) => {
     console.log("loading feed detail: content = "+ data.content);
     if(!data.content) {
-    api.loadFeedDetail(data._id).then(res => {
+    api.loadFeedDetail(data.id).then(res => {
       console.log("detail :");
       console.log(res);
       setData(res);

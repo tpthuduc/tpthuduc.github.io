@@ -8,14 +8,11 @@ class NewsApi {
     }
 
     async loadFeed() {
-            return  await this.appApi.loadApi('/news').then (res => {
-                if(!res.title) res.title = "Bài viết không có tiêu đề"
-                if(!res.summary) res.summary = "Nhấn để xem nội dung"
-            })
+            return await this.appApi.loadApi('/v2/news/');
         }
 
     async loadFeedDetail(feedId) {
-        return await this.appApi.loadApi('/news/content/'+ feedId)
+        return await this.appApi.loadApi('/v2/news/detail/'+ feedId);
     }
 }
 
