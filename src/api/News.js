@@ -8,11 +8,11 @@ class NewsApi {
     }
 
     async loadFeed() {
-            return await this.appApi.loadApi('/v2/news/');
+            return await this.appApi.loadApi('/news/');
         }
 
     async loadFeedDetail(feedId) {
-        return await this.appApi.loadApi('/v2/news/detail/'+ feedId);
+        return await this.appApi.loadApi('/news/detail/'+ feedId);
     }
 }
 
