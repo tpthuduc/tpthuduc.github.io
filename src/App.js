@@ -6,9 +6,11 @@ import Home from './components/Home';
 class App extends React.Component {
   render() {
     return (
+      <React.StrictMode>
       <div className="App">
         <Home/>
       </div>
+      </React.StrictMode>
     );
   }
 }
