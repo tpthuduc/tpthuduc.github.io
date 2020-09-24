@@ -2,6 +2,8 @@ import HomePage from "./components/v2/HomePage.react";
 
 import * as React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import "bootstrap";
 import "tabler-react/dist/Tabler.css";
 
 type Props = {||};

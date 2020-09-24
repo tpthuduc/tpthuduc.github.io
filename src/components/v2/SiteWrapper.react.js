@@ -197,23 +197,7 @@ class SiteWrapper extends React.Component<Props, State> {
           imageURL: "./images/local_news.svg",
           title: "Tin dia phuong",
           description: "Quan 9",
-          navItems: (
-            <Nav.Item type="div" className="d-none d-md-flex">
-              <h2>Tin dia phuong</h2>
-            </Nav.Item>,
-            <Nav.Item type="div" className="d-none d-md-flex">
-              <Button
-                href="https://github.com/tabler/tabler-react"
-                target="_blank"
-                outline
-                size="sm"
-                RootComponent="a"
-                color="primary"
-              >
-                Source code
-              </Button>
-            </Nav.Item>
-          ),
+       
           notificationsTray: {
             notificationsObjects,
             markAllAsRead: () =>
@@ -279,17 +263,6 @@ class SiteWrapper extends React.Component<Props, State> {
                     <a href="./faq.html">FAQ</a>
                   </List.Item>
                 </List>
-              </Grid.Col>
-              <Grid.Col auto={true}>
-                <Button
-                  href="https://github.com/tabler/tabler-react"
-                  size="sm"
-                  outline
-                  color="primary"
-                  RootComponent="a"
-                >
-                  Source code
-                </Button>
               </Grid.Col>
             </React.Fragment>
           ),
