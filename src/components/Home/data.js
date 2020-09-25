@@ -1,6 +1,7 @@
 import React from 'react';
 
 import axios from 'axios';
+import config from '../../config';
 
 export default class News extends React.Component {
   state = {
@@ -8,7 +9,7 @@ export default class News extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:4000/api/post`)
+    axios.get(config.post.URL)
       .then(res => {
         const news = res.data;
         this.setState({ news });

@@ -73,13 +73,15 @@ class NewsGridList extends React.Component {
 
     fetchData = () => {
         console.log("fetching data")
-        let url = `http://localhost:4000/api/news?per_page=40`
+        let url =   process.env.REACT_APP_NEWS_URL + `?per_page=40`
         const _loadMore = true;
         let _page = this.state.page;
         if (_loadMore) {
             _page = _page + 1;
             url += '&page=' + _page;
         }
+
+        console.log("fetching data with page "+_page);
         axios.get(url)
             .then(res => {
                 const news = res.data;
@@ -89,7 +91,7 @@ class NewsGridList extends React.Component {
                         {
                             data: [...this.state.data, ...news],
                             loadMore: true,
-                            page: this.state.page
+                            page: _page
                         })
                 else this.setState(
                     {

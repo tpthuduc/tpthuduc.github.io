@@ -8,7 +8,7 @@ class BaseNewsGrid extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:4000/api/news`)
+        axios.get(process.env.REACT_APP_NEWS_URL)
             .then(res => {
                 const news = res.data;
                 var s = news.Content;

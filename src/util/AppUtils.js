@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-var baseUrl = 'http://localhost:4000/api'
+// var baseUrl = 'http://localhost:4000/api'
+var baseUrl = process.env.REACT_APP_API_URL
 
 class AppUtil {
     async loadApi(endPoint) {
