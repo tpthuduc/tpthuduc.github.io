@@ -45,15 +45,15 @@ type navItem = {|
 
 const navBarItems: Array<navItem> = [
   {
-    value: "Home",
+    value: "Trang chủ",
     to: "/",
     icon: "home",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
   {
-    value: "Interface",
-    icon: "box",
+    value: "Phổ biến",
+    icon: "globe",
     subItems: [
       {
         value: "Cards Design",
@@ -69,72 +69,21 @@ const navBarItems: Array<navItem> = [
     ],
   },
   {
-    value: "Components",
-    icon: "calendar",
+    value: "Coronavirus",
+    icon: "shield",
     subItems: [
       { value: "Maps", to: "/maps", LinkComponent: withRouter(NavLink) },
       { value: "Icons", to: "/icons", LinkComponent: withRouter(NavLink) },
       { value: "Store", to: "/store", LinkComponent: withRouter(NavLink) },
       { value: "Blog", to: "/blog", LinkComponent: withRouter(NavLink) },
     ],
-  },
-  {
-    value: "Pages",
-    icon: "file",
-    subItems: [
-      { value: "Profile", to: "/profile", LinkComponent: withRouter(NavLink) },
-      { value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Register",
-        to: "/register",
-        LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Forgot password",
-        to: "/forgot-password",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "400 error", to: "/400", LinkComponent: withRouter(NavLink) },
-      { value: "401 error", to: "/401", LinkComponent: withRouter(NavLink) },
-      { value: "403 error", to: "/403", LinkComponent: withRouter(NavLink) },
-      { value: "404 error", to: "/404", LinkComponent: withRouter(NavLink) },
-      { value: "500 error", to: "/500", LinkComponent: withRouter(NavLink) },
-      { value: "503 error", to: "/503", LinkComponent: withRouter(NavLink) },
-      { value: "Email", to: "/email", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Empty page",
-        to: "/empty-page",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "RTL", to: "/rtl", LinkComponent: withRouter(NavLink) },
-    ],
-  },
-  {
-    value: "Forms",
-    to: "/form-elements",
-    icon: "check-square",
-    LinkComponent: withRouter(NavLink),
-  },
-  {
-    value: "Gallery",
-    to: "/gallery",
-    icon: "image",
-    LinkComponent: withRouter(NavLink),
-  },
-  {
-    icon: "file-text",
-    value: "Documentation",
-    to:
-      process.env.NODE_ENV === "production"
-        ? "https://tabler.github.io/tabler-react/documentation"
-        : "/documentation",
-  },
+  }
 ];
 
 const accountDropdownProps = {
-  avatarURL: "./demo/faces/female/25.jpg",
-  name: "Jane Pearson",
-  description: "Administrator",
+  avatarURL: "https://s120-ava-talk.zadn.vn/4/c/d/3/0/120/09f385d32d7677e9ff00099536a7d200.jpg",
+  name: "Đình Trung Lê",
+  description: "Quận 9, Tp. Hcm",
   options: [
     { icon: "user", value: "Profile" },
     { icon: "settings", value: "Settings" },
@@ -190,13 +139,13 @@ class SiteWrapper extends React.Component<Props, State> {
       false
     );
     return (
-      <Site.Wrapper
+      <InnerSiteWrapper
         headerProps={{
           href: "/",
           alt: "Tin dia phuong",
           imageURL: "./images/local_news.svg",
-          title: "Tin dia phuong",
-          description: "Quan 9",
+          title: "Tin địa phương",
+          description: "Quận 9",
        
           notificationsTray: {
             notificationsObjects,
@@ -269,7 +218,7 @@ class SiteWrapper extends React.Component<Props, State> {
         }}
       >
         {this.props.children}
-      </Site.Wrapper>
+      </InnerSiteWrapper>
     );
   }
 }

@@ -11,20 +11,16 @@ type Props = {|
 |};
 
 const AliLogo = (props: Props): React.Node => (
-    <a className="header-brand" href={props.href}>
+    <a className="header-brand nav-link pr-0 leading-none" href={props.href}>
         <img src={props.src} className="header-brand-img" alt={props.alt} />
-        <div className="container">
-            <div className="column">
-                <div className="content one">
-                    {props.title}
-                </div>
-            </div>
-            <div className="column">
-                <div className="content two">
-                    {props.description}
-                </div>
-            </div>
-        </div>
+        <span className="m1-2 d-none d-lg-block">
+            <span className="text-default font-weight-bold">
+                {props.title}
+            </span>
+            <small className="text-blue d-block mt-1 dt" style={{fontSize: "1rem"}}>
+                {props.description}
+            </small>
+        </span>
     </a>
 )
 
