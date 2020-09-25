@@ -1,189 +1,218 @@
 // @flow
 
 import * as React from "react";
+import PropTypes from 'prop-types';
+import { fetchNewsList } from '../../actions/NewsAction';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { findSourceLogo } from '../../util/ImageUtil';
 
 import {
-    Page,
-    Grid,
-    Card,
-    Text,
-    Table,
-    Alert,
-    Progress,
-    Button, StatsCard,
-    BlogCard
+  Page,
+  Grid,
+  Card,
+  Text,
+  Table,
+  Alert,
+  Progress,
+  Button, StatsCard,
+  BlogCard,
+  Loader
 } from "tabler-react";
 
 import SiteWrapper from "./SiteWrapper.react";
 
-function Home() {
+type Props = {};
+
+export default class Home extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchNewsList());
+  }
+
+  loadMoreData = () => {
+    const { dispatch } = this.props;
+    let page = 1;
+    if (this.props && this.props.page) {
+      page = this.props.page;
+    }
+
+    if (page < 1) page = 1;
+    dispatch(fetchNewsList(page));
+  }
+
+  render() {
+    const newsList = [...this.props.list];
+    console.log(newsList);
+
+    const mainNews = [];
+    const moreNews = [];
+    if (newsList.length == 0) {
+
+    } else if (newsList.length <= 7) {
+
+      for (var i = 0; i < newsList.length; i++) {
+        let item = newsList[i];
+        mainNews.push(
+          <Grid.Col width={12}>
+            <BlogCard
+              imgSrc={item.thumbnail}
+              imgAlt={item.summary}
+              title={item.title}
+              description={item.summary}
+              profileHref={item.source.baseUrl}
+              postHref={item.source.url}
+              authorName={item.source.displayName}
+              avatarImgSrc={findSourceLogo(item.source.displayName)}
+              date={"15 phút trước"}
+              iconName={"arrow-right"}
+            />
+          </Grid.Col>)
+      }
+
+    } else {
+
+      mainNews.push(
+        <Grid.Col width={12} md={9}>
+          <BlogCard
+            imgSrc={newsList[0].thumbnail}
+            imgAlt={newsList[0].summary}
+            title={newsList[0].title}
+            description={newsList[0].summary}
+            postHref={newsList[0].source.url}
+            profileHref={newsList[0].source.baseUrl}
+            authorName={newsList[0].source.displayName}
+            avatarImgSrc={findSourceLogo(newsList[0].source.displayName)}
+            date={"15 phút trước"}
+            iconName={"arrow-right"}
+          />
+        </Grid.Col>);
+
+      mainNews.push(
+        <Grid.Col width={12} md={3}>
+
+          <BlogCard
+            imgSrc={newsList[1].thumbnail}
+            title={newsList[1].title}
+            //description={newsList[1].summary}
+            postHref={newsList[1].source.url}
+            profileHref={newsList[1].source.baseUrl}
+            authorName={newsList[1].source.displayName}
+            avatarImgSrc={findSourceLogo(newsList[1].source.displayName)}
+            date={"15 phút trước"}
+            iconName={"arrow-right"}
+          />
+          <BlogCard
+            imgSrc={newsList[2].thumbnail}
+            title={newsList[2].title}
+            //description={newsList[1].summary}
+            postHref={newsList[2].source.url}
+            profileHref={newsList[2].source.baseUrl}
+            authorName={newsList[2].source.displayName}
+            avatarImgSrc={findSourceLogo(newsList[2].source.displayName)}
+            date={"15 phút trước"}
+            iconName={"arrow-right"}
+          />
+
+        </Grid.Col>);
+
+      for (var i = 3; i < 7; i++) {
+        let item = newsList[i];
+        mainNews.push(
+          <Grid.Col width={12} md={3}>
+            <BlogCard
+              imgSrc={item.thumbnail}
+              // imgAlt={item.summary}
+              title={item.title}
+              description={item.summary}
+              postHref={item.source.url}
+              profileHref={item.source.baseUrl}
+              authorName={item.source.displayName}
+              avatarImgSrc={findSourceLogo(item.source.displayName)}
+              date={"15 phút trước"}
+              iconName={"arrow-right"}
+            />
+          </Grid.Col>)
+      }
+
+      for (var i = 6; i < newsList.length; i++) {
+        let item = newsList[i];
+        moreNews.push(
+          <Grid.Col width={12}>
+            <BlogCard
+              aside
+              imgSrc={item.thumbnail}
+              imgAlt={item.summary}
+              postHref={item.source.url}
+              title={item.title}
+              description={item.summary}
+              profileHref={item.source.baseUrl}
+              authorName={item.source.displayName}
+              avatarImgSrc={findSourceLogo(item.source.displayName)}
+              date={"1 ngày trước"}
+              iconName={"arrow-right"}
+            />
+          </Grid.Col>
+        )
+      }
+
+    }
+
+    let endOfPage;
+    if (!this.props.hasMore && newsList.length != 0) endOfPage =
+      <div class="col-12 d-flex justify-content-center">
+        <div class="text-muted bold" style={{
+          backgroundColor: "transparent",
+          backgroundClip: "unset",
+          border: "0",
+          borderRadius: "0",
+          boxShadow: "none"
+        }}>Oop! Hết tin rồi, quay lại sau nhé!</div>
+      </div>
+
+    let body;
+    if (newsList.length != 0) {
+      body = <Page.Content title="Tin Chính">
+        <Grid.Row cards deck>
+          {mainNews}
+        </Grid.Row>
+        <Grid.Row>
+          <Page.Header title={"Tin khác"} />
+          <InfiniteScroll
+            dataLength={newsList.length}
+            next={this.loadMoreData}
+            hasMore={this.props.hasMore}
+            loader={
+              <div class="col-12 d-flex justify-content-center">
+                <div class="loader card" style={{
+                  backgroundColor: "transparent",
+                  backgroundClip: "unset",
+                  border: "0",
+                  borderRadius: "0",
+                  boxShadow: "none"
+                }} />
+              </div>}>
+            {moreNews}
+            {endOfPage}
+          </InfiniteScroll>
+        </Grid.Row >
+      </Page.Content >
+    } else {
+      body = <Page.Content></Page.Content>
+    }
+
     return (
-        <SiteWrapper>
-        <Page.Content title="Tin Chính">
-            <Grid.Row cards deck>
-            <Grid.Col height={12} width={12} md={8}>
-            <BlogCard
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-            </Grid.Col>
-            <Grid.Col height={6} width={12} md={4}>
-            <BlogCard
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-            </Grid.Col>
-            <Grid.Col width={12} md={3}>
-            <BlogCard
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-            </Grid.Col>
-            <Grid.Col width={12} md={3}>
-            <BlogCard
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-            </Grid.Col>
-            <Grid.Col width={12} md={3}>
-            <BlogCard
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-            </Grid.Col>
-            <Grid.Col width={12} md={3}>
-            <BlogCard
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-            </Grid.Col>
-            </Grid.Row>
-            <Page.Header
-          title="Tin khác"
-        />
-            <Grid.Row cards deck >
-          <Grid.Col width={12}>
-            <BlogCard
-              aside
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"And this isn&#39;t my nose. This is a false one."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Look, my liege! The Knights Who Say Ni demand a sacrifice! …Are you suggesting that coconuts migr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Rose Bradley"}
-              avatarImgSrc={"./demo/faces/female/18.jpg"}
-              date={"3 days ago"}
-            />
-          </Grid.Col>
-          <Grid.Col width={12}>
-            <BlogCard
-              aside
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"Well, I didn't vote for you."}
-              postHref={"#"}
-              title={"And this isn't my nose. This is a false one."}
-              description={
-                "Well, we did do the nose. Why? Shut up! Will you shut up?! You don't frighten us, English pig-dog..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Peter Richards"}
-              avatarImgSrc={"./demo/faces/male/16.jpg"}
-              date={"3 days ago"}
-            />
-          </Grid.Col>
-          <Grid.Col width={12}>
-            <BlogCard
-              aside
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"Weaseling out of things is important to learn."}
-              postHref={"#"}
-              title={"Weaseling out of things is important to learn."}
-              description={
-                "Please do not offer my god a peanut. That's why I love elementary school, Edna. The children believe anything you tell them. Brace yourselves gentlemen. According to the gas chromatograph, the secr..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Bobby Knight"}
-              avatarImgSrc={"./demo/faces/male/4.jpg"}
-              date={"3 days ago"}
-            />
-          </Grid.Col>
-          <Grid.Col width={12}>
-            <BlogCard
-              aside
-              imgSrc={"https://media.laodong.vn/Storage/NewsPortal/2020/9/24/838759/Nancy-Pelosi.jpg?w=888&h=592&crop=auto&scale=both"}
-              imgAlt={"You don't like your job, you don't strike."}
-              postHref={"#"}
-              title={"You don't like your job, you don't strike."}
-              description={
-                "But, Aquaman, you cannot marry a woman without gills. You're from two different worlds… Oh, I've wasted my life. Son, when you participate in sporting events, it's not whether you win or lose: it's..."
-              }
-              profileHref={"./profile.html"}
-              authorName={"Craig Anderson"}
-              avatarImgSrc={"./demo/faces/male/35.jpg"}
-              date={"3 days ago"}
-            />
-          </Grid.Col>
-            </Grid.Row>
-        </Page.Content>
-        </SiteWrapper>
+      <SiteWrapper showFooter={newsList.length != 0}>
+        {body}
+      </SiteWrapper>
     )
+  }
 }
 
-export default Home;
+Home.propTypes = {
+  list: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired
+}

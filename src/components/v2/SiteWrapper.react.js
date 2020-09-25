@@ -19,28 +19,29 @@ import AliSite from "../base/site/AliSite";
 
 type Props = {|
   +children: React.Node,
-|};
+  +showFooter: boolean
+    |};
 
 type State = {|
-  notificationsObjects: Array<NotificationProps>,
+  notificationsObjects: Array < NotificationProps >,
 |};
 
 type subNavItem = {|
   +value: string,
-  +to?: string,
-  +icon?: string,
-  +LinkComponent?: React.ElementType,
-  +useExact?: boolean,
+  +to ?: string,
+  +icon ?: string,
+  +LinkComponent ?: React.ElementType,
+  +useExact ?: boolean,
 |};
 
 type navItem = {|
   +value: string,
-  +to?: string,
-  +icon?: string,
-  +active?: boolean,
-  +LinkComponent?: React.ElementType,
-  +subItems?: Array<subNavItem>,
-  +useExact?: boolean,
+  +to ?: string,
+  +icon ?: string,
+  +active ?: boolean,
+  +LinkComponent ?: React.ElementType,
+  +subItems ?: Array < subNavItem >,
+  +useExact ?: boolean,
 |};
 
 const navBarItems: Array<navItem> = [
@@ -54,7 +55,7 @@ const navBarItems: Array<navItem> = [
   {
     value: "Phổ biến",
     icon: "globe",
-    subItems: [
+    /* subItems: [
       {
         value: "Cards Design",
         to: "/cards",
@@ -66,8 +67,8 @@ const navBarItems: Array<navItem> = [
         to: "/pricing-cards",
         LinkComponent: withRouter(NavLink),
       },
-    ],
-  },
+    ], */
+  }/* ,
   {
     value: "Coronavirus",
     icon: "shield",
@@ -77,7 +78,7 @@ const navBarItems: Array<navItem> = [
       { value: "Store", to: "/store", LinkComponent: withRouter(NavLink) },
       { value: "Blog", to: "/blog", LinkComponent: withRouter(NavLink) },
     ],
-  }
+  } */
 ];
 
 const accountDropdownProps = {
@@ -138,6 +139,44 @@ class SiteWrapper extends React.Component<Props, State> {
       (a, v) => a || v.unread,
       false
     );
+
+    let footerProps;
+    if (this.props.showFooter)
+      footerProps = {
+        /*     links: [
+              <a href="#">First Link</a>,
+              <a href="#">Second Link</a>,
+              <a href="#">Third Link</a>,
+              <a href="#">Fourth Link</a>,
+              <a href="#">Five Link</a>,
+              <a href="#">Sixth Link</a>,
+              <a href="#">Seventh Link</a>,
+              <a href="#">Eigth Link</a>,
+            ], */
+        /*  note:
+           "Trang thuộc bản quyền Ali-Kit", */
+        copyright: (
+          <React.Fragment>
+            Copyright © 2020
+            <a href="."> Ali-Kit</a>
+          </React.Fragment>
+        ),
+        /*      nav: (
+               <React.Fragment>
+                 <Grid.Col auto={true}>
+                   <List className="list-inline list-inline-dots mb-0">
+                     <List.Item className="list-inline-item">
+                       <a href="./docs/index.html">Documentation</a>
+                     </List.Item>
+                     <List.Item className="list-inline-item">
+                       <a href="./faq.html">FAQ</a>
+                     </List.Item>
+                   </List>
+                 </Grid.Col>
+               </React.Fragment>
+             ), */
+      }
+
     return (
       <InnerSiteWrapper
         headerProps={{
@@ -146,7 +185,7 @@ class SiteWrapper extends React.Component<Props, State> {
           imageURL: "./images/local_news.svg",
           title: "Tin địa phương",
           description: "Quận 9",
-       
+
           notificationsTray: {
             notificationsObjects,
             markAllAsRead: () =>
@@ -173,49 +212,7 @@ class SiteWrapper extends React.Component<Props, State> {
         }}
         navProps={{ itemsObjects: navBarItems }}
         routerContextComponentType={withRouter(RouterContextProvider)}
-        footerProps={{
-          links: [
-            <a href="#">First Link</a>,
-            <a href="#">Second Link</a>,
-            <a href="#">Third Link</a>,
-            <a href="#">Fourth Link</a>,
-            <a href="#">Five Link</a>,
-            <a href="#">Sixth Link</a>,
-            <a href="#">Seventh Link</a>,
-            <a href="#">Eigth Link</a>,
-          ],
-          note:
-            "Premium and Open Source dashboard template with responsive and high quality UI. For Free!",
-          copyright: (
-            <React.Fragment>
-              Copyright © 2019
-              <a href="."> Tabler-react</a>. Theme by
-              <a
-                href="https://codecalm.net"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {" "}
-                codecalm.net
-              </a>{" "}
-              All rights reserved.
-            </React.Fragment>
-          ),
-          nav: (
-            <React.Fragment>
-              <Grid.Col auto={true}>
-                <List className="list-inline list-inline-dots mb-0">
-                  <List.Item className="list-inline-item">
-                    <a href="./docs/index.html">Documentation</a>
-                  </List.Item>
-                  <List.Item className="list-inline-item">
-                    <a href="./faq.html">FAQ</a>
-                  </List.Item>
-                </List>
-              </Grid.Col>
-            </React.Fragment>
-          ),
-        }}
+        footerProps={footerProps}
       >
         {this.props.children}
       </InnerSiteWrapper>
