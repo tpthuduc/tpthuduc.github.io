@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { fetchNewsList } from '../../actions/NewsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../../util/ImageUtil';
+import { momentCalendar, momentFromNow } from '../../util/CommonUtil';
 
 import {
   Page,
@@ -20,6 +21,7 @@ import {
 } from "tabler-react";
 
 import SiteWrapper from "./SiteWrapper.react";
+import moment from "moment";
 
 type Props = {};
 
@@ -51,9 +53,9 @@ export default class Home extends React.Component<Props> {
     const mainNews = [];
     const moreNews = [];
     if (newsList.length == 0) {
-
+      /* there are no item in response list */
     } else if (newsList.length <= 7) {
-
+      /* no more than 7 items */
       for (var i = 0; i < newsList.length; i++) {
         let item = newsList[i];
         mainNews.push(
@@ -67,15 +69,16 @@ export default class Home extends React.Component<Props> {
               postHref={item.source.url}
               authorName={item.source.displayName}
               avatarImgSrc={findSourceLogo(item.source.displayName)}
-              date={"15 phút trước"}
+              date={momentFromNow(item.publicationDate)}
               iconName={"arrow-right"}
             />
           </Grid.Col>)
       }
 
     } else {
-
+      /* more than 7 items */
       mainNews.push(
+        /* the biggest first item */
         <Grid.Col width={12} md={9}>
           <BlogCard
             imgSrc={newsList[0].thumbnail}
@@ -86,14 +89,14 @@ export default class Home extends React.Component<Props> {
             profileHref={newsList[0].source.baseUrl}
             authorName={newsList[0].source.displayName}
             avatarImgSrc={findSourceLogo(newsList[0].source.displayName)}
-            date={"15 phút trước"}
+            date={momentFromNow(newsList[0].publicationDate)}
             iconName={"arrow-right"}
           />
         </Grid.Col>);
 
       mainNews.push(
+        /* two items on the right */
         <Grid.Col width={12} md={3}>
-
           <BlogCard
             imgSrc={newsList[1].thumbnail}
             title={newsList[1].title}
@@ -102,7 +105,7 @@ export default class Home extends React.Component<Props> {
             profileHref={newsList[1].source.baseUrl}
             authorName={newsList[1].source.displayName}
             avatarImgSrc={findSourceLogo(newsList[1].source.displayName)}
-            date={"15 phút trước"}
+            date={momentFromNow(newsList[1].publicationDate)}
             iconName={"arrow-right"}
           />
           <BlogCard
@@ -113,7 +116,7 @@ export default class Home extends React.Component<Props> {
             profileHref={newsList[2].source.baseUrl}
             authorName={newsList[2].source.displayName}
             avatarImgSrc={findSourceLogo(newsList[2].source.displayName)}
-            date={"15 phút trước"}
+            date={momentFromNow(newsList[2].publicationDate)}
             iconName={"arrow-right"}
           />
 
@@ -132,7 +135,7 @@ export default class Home extends React.Component<Props> {
               profileHref={item.source.baseUrl}
               authorName={item.source.displayName}
               avatarImgSrc={findSourceLogo(item.source.displayName)}
-              date={"15 phút trước"}
+              date={momentFromNow(item.publicationDate)}
               iconName={"arrow-right"}
             />
           </Grid.Col>)
@@ -152,7 +155,7 @@ export default class Home extends React.Component<Props> {
               profileHref={item.source.baseUrl}
               authorName={item.source.displayName}
               avatarImgSrc={findSourceLogo(item.source.displayName)}
-              date={"1 ngày trước"}
+              date={momentCalendar(item.publicationDate)}
               iconName={"arrow-right"}
             />
           </Grid.Col>
