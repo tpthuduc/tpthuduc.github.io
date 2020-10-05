@@ -50,12 +50,12 @@ export function fetchNewsList(page) {
     if (!page|| page == 0) {
         return dispatch => {
             dispatch(requestNewsListReload())
-            return loadDefaultApi("/news?keyword=Quận 9&keyword=Q.9&keyword=Q9&keyword=quan 9&keyword=quận 9&keyword=Quận Chín").then(req => dispatch(receiveNewsListReload(req)));
+            return loadDefaultApi("/news").then(req => dispatch(receiveNewsListReload(req)));
         }
     } else {
         return dispatch => {
             dispatch(requestNewsListLoadMore())
-            return loadDefaultApi("/news?page="+(page+1)+"&keyword=Quận 9&keyword=Q.9&keyword=Q9&keyword=quan 9&keyword=quận 9&keyword=Quận Chín").then(req => dispatch(receiveNewsListLoadMore(req, page+1)));
+            return loadDefaultApi("/news?page="+(page+1)).then(req => dispatch(receiveNewsListLoadMore(req, page+1)));
         }
     }
 }
