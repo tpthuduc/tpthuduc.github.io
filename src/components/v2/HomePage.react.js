@@ -76,10 +76,12 @@ export default class Home extends React.Component<Props> {
       }
 
     } else {
-      /* more than 7 items */
+      /* more than 7 items
+      
+      */
       mainNews.push(
         /* the biggest first item */
-        <Grid.Col width={12} lg={9}>
+        <Grid.Col width={12} lg={9} md={12}>
           <BlogCard
             imgSrc={newsList[0].thumbnail}
             imgAlt={newsList[0].summary}
@@ -96,7 +98,9 @@ export default class Home extends React.Component<Props> {
 
       mainNews.push(
         /* two items on the right */
-        <Grid.Col width={12} lg={3} md={6}>
+        <Grid.Col width={12} lg={3} md={12}>
+        <Grid.Row>
+          <Grid.Col width={12} lg={12} md={6}>
           <BlogCard
             imgSrc={newsList[1].thumbnail}
             title={newsList[1].title}
@@ -108,6 +112,8 @@ export default class Home extends React.Component<Props> {
             date={momentFromNow(newsList[1].publicationDate)}
             iconName={"arrow-right"}
           />
+          </Grid.Col>
+          <Grid.Col width={12} lg={12} md={6}>
           <BlogCard
             imgSrc={newsList[2].thumbnail}
             title={newsList[2].title}
@@ -119,13 +125,15 @@ export default class Home extends React.Component<Props> {
             date={momentFromNow(newsList[2].publicationDate)}
             iconName={"arrow-right"}
           />
-
-        </Grid.Col>);
+          </Grid.Col>
+        </Grid.Row>
+        </Grid.Col>
+        );
 
       for (var i = 3; i < 7; i++) {
         let item = newsList[i];
         mainNews.push(
-          <Grid.Col width={12} lg={3} md={6}>
+          <Grid.Col width={12} lg={6} xl={3} md={6}>
             <BlogCard
               imgSrc={item.thumbnail}
               // imgAlt={item.summary}
