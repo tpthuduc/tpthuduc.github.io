@@ -79,7 +79,7 @@ export default class Home extends React.Component<Props> {
       /* more than 7 items */
       mainNews.push(
         /* the biggest first item */
-        <Grid.Col width={12} md={9}>
+        <Grid.Col width={12} lg={9}>
           <BlogCard
             imgSrc={newsList[0].thumbnail}
             imgAlt={newsList[0].summary}
@@ -96,7 +96,7 @@ export default class Home extends React.Component<Props> {
 
       mainNews.push(
         /* two items on the right */
-        <Grid.Col width={12} md={3}>
+        <Grid.Col width={12} lg={3} md={6}>
           <BlogCard
             imgSrc={newsList[1].thumbnail}
             title={newsList[1].title}
@@ -125,7 +125,7 @@ export default class Home extends React.Component<Props> {
       for (var i = 3; i < 7; i++) {
         let item = newsList[i];
         mainNews.push(
-          <Grid.Col width={12} md={3}>
+          <Grid.Col width={12} lg={3} md={6}>
             <BlogCard
               imgSrc={item.thumbnail}
               // imgAlt={item.summary}
