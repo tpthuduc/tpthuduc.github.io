@@ -68,7 +68,7 @@ export default class Home extends React.Component<Props> {
               profileHref={item.source.baseUrl}
               postHref={item.source.url}
               authorName={item.source.displayName}
-              avatarImgSrc={findSourceLogo(item.source.displayName)}
+              avatarImgSrc={findSourceLogo(item.source.name)}
               date={momentFromNow(item.publicationDate)}
               iconName={"arrow-right"}
             />
@@ -90,7 +90,7 @@ export default class Home extends React.Component<Props> {
             postHref={newsList[0].source.url}
             profileHref={newsList[0].source.baseUrl}
             authorName={newsList[0].source.displayName}
-            avatarImgSrc={findSourceLogo(newsList[0].source.displayName)}
+            avatarImgSrc={findSourceLogo(newsList[0].source.name)}
             date={momentFromNow(newsList[0].publicationDate)}
             iconName={"arrow-right"}
           />
@@ -108,7 +108,7 @@ export default class Home extends React.Component<Props> {
             postHref={newsList[1].source.url}
             profileHref={newsList[1].source.baseUrl}
             authorName={newsList[1].source.displayName}
-            avatarImgSrc={findSourceLogo(newsList[1].source.displayName)}
+            avatarImgSrc={findSourceLogo(newsList[1].source.name)}
             date={momentFromNow(newsList[1].publicationDate)}
             iconName={"arrow-right"}
           />
@@ -121,7 +121,7 @@ export default class Home extends React.Component<Props> {
             postHref={newsList[2].source.url}
             profileHref={newsList[2].source.baseUrl}
             authorName={newsList[2].source.displayName}
-            avatarImgSrc={findSourceLogo(newsList[2].source.displayName)}
+            avatarImgSrc={findSourceLogo(newsList[2].source.name)}
             date={momentFromNow(newsList[2].publicationDate)}
             iconName={"arrow-right"}
           />
@@ -142,7 +142,7 @@ export default class Home extends React.Component<Props> {
               postHref={item.source.url}
               profileHref={item.source.baseUrl}
               authorName={item.source.displayName}
-              avatarImgSrc={findSourceLogo(item.source.displayName)}
+              avatarImgSrc={findSourceLogo(item.source.name)}
               date={momentFromNow(item.publicationDate)}
               iconName={"arrow-right"}
             />
@@ -162,7 +162,7 @@ export default class Home extends React.Component<Props> {
               description={item.summary}
               profileHref={item.source.baseUrl}
               authorName={item.source.displayName}
-              avatarImgSrc={findSourceLogo(item.source.displayName)}
+              avatarImgSrc={findSourceLogo(item.source.name)}
               date={momentCalendar(item.publicationDate)}
               iconName={"arrow-right"}
             />
