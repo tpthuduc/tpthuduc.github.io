@@ -16,7 +16,9 @@ const sourceLogos = [
     sourceLogo("dantri.com.vn","dantri.png"),
     sourceLogo("nld.com.vn","nguoilaodong.jpg"),
     sourceLogo("anninhthudo.vn","anninhthudo.png"),
-    sourceLogo("baogiaothong.vn","baogiaothong.png")
+    sourceLogo("baogiaothong.vn","baogiaothong.png"),
+    sourceLoao("vietnamnet.vn","vietnamnet.png"),
+    sourceLoao("tienphong.vn","tienphong.png")
 ]
 
 const defaultLogo = "/images/source_logos/rss.jpg";
