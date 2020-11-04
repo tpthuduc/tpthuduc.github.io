@@ -6,7 +6,6 @@ import NewsResponsiveGrid from './news_responsive_grid'
 function Home() {
   return (
     <div style ={{backgroundColor: '#F5F7F9'}}>
-      {/* <News></News> */}
       <HideAppBar/>
       <NewsGridList/>
     </div>
