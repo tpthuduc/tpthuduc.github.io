@@ -1,4 +1,6 @@
 import {HomePage} from "./containers/NewsListContainer";
+import Login from './components/Form/login';
+import Register from './components/Form/register';
 
 import * as React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -21,7 +23,14 @@ function App(props: Props): React.Node {
         <Router>
           <Switch>
             <Route exact path='/' component={HomePage} />
+            <Route exact path="/login">
+                    <Login />
+                </Route>
+                <Route exact path="/register">
+                    <Register />
+                </Route>
           </Switch>
+          
         </Router>
       </Provider>
     </React.StrictMode>

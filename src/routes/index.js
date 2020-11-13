@@ -19,7 +19,7 @@ export default function Routes() {
                 <Route path="/login">
                     <Login />
                 </Route>
-                <Route path="/login">
+                <Route path="/register">
                     <Register />
                 </Route>
                 <Route path="/">
