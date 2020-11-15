@@ -13,8 +13,8 @@ import {
 } from "tabler-react";
 
 import type { NotificationProps } from "tabler-react";
-import InnerSiteWrapper from "../base/site/InnerSiteWrapper.react";
-import AliSite from "../base/site/AliSite";
+import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
+import AliSite from "./base/site/AliSite";
 
 
 type Props = {|
@@ -55,6 +55,9 @@ const navBarItems: Array<navItem> = [
   {
     value: "Phổ biến",
     icon: "globe",
+    to: "/populars",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
     /* subItems: [
       {
         value: "Cards Design",

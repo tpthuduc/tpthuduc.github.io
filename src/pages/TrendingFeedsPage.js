@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import PropTypes from 'prop-types';
-import { fetchNewsList } from '../../actions/NewsAction';
+import { fetchNewsList } from '../actions/TrendingFeedsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { findSourceLogo } from '../../util/ImageUtil';
-import { momentCalendar, momentFromNow } from '../../util/CommonUtil';
+import { findSourceLogo } from '../util/ImageUtil';
+import { momentCalendar, momentFromNow } from '../util/CommonUtil';
 
 import {
   Page,
@@ -20,12 +20,12 @@ import {
   Loader
 } from "tabler-react";
 
-import SiteWrapper from "./SiteWrapper.react";
+import SiteWrapper from "../components/SiteWrapper.react";
 import moment from "moment";
 
 type Props = {};
 
-export default class Home extends React.Component<Props> {
+export default class TrendingFeedsPage extends React.Component<Props> {
   constructor(props) {
     super(props);
   }
@@ -186,7 +186,7 @@ export default class Home extends React.Component<Props> {
 
     let body;
     if (newsList.length != 0) {
-      body = <Page.Content title="Tin Chính">
+      body = <Page.Content title="Phổ biến">
         <Grid.Row cards deck>
           {mainNews}
         </Grid.Row>
@@ -216,14 +216,14 @@ export default class Home extends React.Component<Props> {
     }
 
     return (
-      <SiteWrapper showFooter={newsList.length != 0}>
+      <SiteWrapper  showFooter={newsList.length != 0}>
         {body}
       </SiteWrapper>
     )
   }
 }
 
-Home.propTypes = {
+TrendingFeedsPage.propTypes = {
   list: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired
 }
