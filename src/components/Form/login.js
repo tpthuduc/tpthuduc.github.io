@@ -4,7 +4,7 @@ import {userLoginFetch} from '../../actions/AuthAction';
 
 class Login extends Component {
   state = {
-    username: "",
+    email: "",
     password: ""
   }
 
@@ -24,11 +24,11 @@ class Login extends Component {
       <form onSubmit={this.handleSubmit}>
         <h1>Login</h1>
 
-        <label>Username</label>
+        <label>email</label>
         <input
-          name='username'
-          placeholder='Username'
-          value={this.state.username}
+          name='email'
+          placeholder='email'
+          value={this.state.email}
           onChange={this.handleChange}
           /><br/>
 
