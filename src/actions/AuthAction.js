@@ -43,6 +43,9 @@ export const userLoginFetch = user => {
           dispatch(loginUser(data.user))
         }
     })
+    .catch(err=>{
+      dispatch(l)
+    })
 }
 }
 

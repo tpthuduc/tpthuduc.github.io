@@ -96,6 +96,10 @@ const accountDropdownProps = {
   ],
 };
 
+const formProps = {
+
+};
+
 class SiteWrapper extends React.Component<Props, State> {
   state = {
     notificationsObjects: [
@@ -104,8 +108,7 @@ class SiteWrapper extends React.Component<Props, State> {
         avatarURL: "demo/faces/male/41.jpg",
         message: (
           <React.Fragment>
-            <strong>Nathan</strong> pushed new commit: Fix page load performance
-            issue.
+            Hello1
           </React.Fragment>
         ),
         time: "10 minutes ago",
@@ -115,7 +118,7 @@ class SiteWrapper extends React.Component<Props, State> {
         avatarURL: "demo/faces/female/1.jpg",
         message: (
           <React.Fragment>
-            <strong>Alice</strong> started new task: Tabler UI design.
+            hello 2
           </React.Fragment>
         ),
         time: "1 hour ago",
@@ -125,7 +128,7 @@ class SiteWrapper extends React.Component<Props, State> {
         avatarURL: "demo/faces/female/18.jpg",
         message: (
           <React.Fragment>
-            <strong>Rose</strong> deployed new version of NodeJS REST Api // V3
+            hello3
           </React.Fragment>
         ),
         time: "2 hours ago",
@@ -208,7 +211,8 @@ class SiteWrapper extends React.Component<Props, State> {
               ),
             unread: unreadCount,
           },
-          accountDropdown: accountDropdownProps,
+          accountDropdown: (this.props.token) ? accountDropdownProps : formProps,
+
         }}
         navProps={{ itemsObjects: navBarItems }}
         routerContextComponentType={withRouter(RouterContextProvider)}
