@@ -81,7 +81,9 @@ const navBarItems: Array<navItem> = [
   } */
 ];
 
-const accountDropdownProps = {
+let isLogined = true; 
+
+const accountDropdownProps = (isLogined)?{
   avatarURL: "https://s120-ava-talk.zadn.vn/4/c/d/3/0/120/09f385d32d7677e9ff00099536a7d200.jpg",
   name: "Đình Trung Lê",
   description: "Quận 9, Tp. Hcm",
@@ -94,6 +96,14 @@ const accountDropdownProps = {
     { icon: "help-circle", value: "Need help?" },
     { icon: "log-out", value: "Sign out" },
   ],
+}:{
+  avatarURL: "./burger.png",
+  name: "Login / Register",
+  description: "Quận 9, Tp. Hcm",
+  options: [
+    { icon: "login", value: "Login" },
+    { icon: "register", value: "Register" },
+  ]
 };
 
 const formProps = {

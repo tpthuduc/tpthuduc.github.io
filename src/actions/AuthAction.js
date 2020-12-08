@@ -44,10 +44,12 @@ export const userLoginFetch = user => {
         }
     })
     .catch(err=>{
-      dispatch(l)
+      console.log(err);
     })
 }
 }
+
+
 
 const loginUser = userObj => ({
   type: LOGIN_USER,
