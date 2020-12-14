@@ -41,3 +41,76 @@ h4.headline,
 .h4.headline {
   font-size: 1.25rem;
 }
+
+.img-center-crop {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+}
+
+.img-headline {
+  border-radius:8px;
+  width:116px;
+  height: 116px;
+  padding: 0px;
+  margin-right:16px;
+  border: 1.5px solid #ced4da;
+  background: #f8f8f8 no-repeat center/cover;
+  text-indent: -10000px
+}
+
+.no-outline {
+  border: 0px;
+}
+
+.img-headline-sourcelogo {
+  object-fit: cover;
+  width:16px;
+  height: 16px;
+  margin-top: 4px;
+  margin-bottom:4px;
+  border-radius:16px;
+  margin-right: 4px;
+  vertical-align:middle;
+}
+
+.txt-headline-source {
+  font-size: 0.75rem;
+}
+
+.div-headline-source {
+ height: 24px;
+}
+
+.middle-dot-headline {
+margin-left: 6px;
+margin-right: 6px;
+font-size: 0.25rem;
+vertical-align:middle;
+}
+
+.text-description-headline {
+  font-size: 0.9rem;
+  color:black
+}
+
+.div-subheadline-source {
+  height:12px;
+  margin-left: 16px;
+}
+
+.img-subheadline-sourcelogo {
+  object-fit: cover;
+  width:16px;
+  height: 16px;
+  border-radius:16px;
+  margin-right: 4px;
+  vertical-align:middle;
+}
+
+.txt-subheadline {
+  font-size:0.95rem;
+}
+.subheadline {
+  margin-bottom: 8px;
+}

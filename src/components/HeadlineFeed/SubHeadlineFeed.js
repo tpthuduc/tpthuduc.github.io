@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-import { Media , List} from "tabler-react";
+import { Media, List } from "tabler-react";
 
 type Props = {|
     +children ?: React.Node,
@@ -13,6 +13,7 @@ type Props = {|
     +sourceImageUrl ?: string,
     +sourceName ? : string,
     +sourceUrl ?: string,
+    +sourceBaseUrl ?: string,
     +subs: React.Node,
     |};
 
@@ -26,17 +27,26 @@ function SubHeadlineFeed({
     sourceImageUrl,
     sourceName,
     sourceUrl,
+    sourceBaseUrl,
     subs,
 }: Props): React.Node {
     return (
         <Media.ListItem className={className}>
-            <a href={sourceUrl} className="text-bl text-default ">
 
-            <Media.Body>
-                <h6>{title}</h6>
-                {description}
+            <Media.Body className="subheadline">
+                <span className="middle-dot-headline text-default text-bl">⬤</span>
+                <span>
+                    <a href={sourceUrl} className="text-bl text-default txt-subheadline" target="_blank" rel="noopener noreferrer">
+                        <strong>{title}</strong>
+                    </a>
+                    <div className="div-subheadline-source">
+                        <a className="text-default text-bl txt-headline-source" href={sourceBaseUrl}>{sourceName}</a>
+                        <span className="middle-dot-headline text-default text-bl">⬤</span>
+                        <span className="text-default text-bl txt-headline-source">{date}</span>
+                    </div>
+                </span>
+
             </Media.Body>
-            </a>
 
         </Media.ListItem>
     );

@@ -57,7 +57,7 @@ export default class HeadlinesFeedsPage extends React.Component<Props> {
     } else {
 
       for (var i = 0; i < newsList.length; i++) {
-        const items = newsList[i].data;
+        const items = newsList[i].data.slice(0, newsList.length > 5 ? 5 : newsList.length);
         if (items.length == 0) {
           break;
         }
@@ -70,13 +70,20 @@ export default class HeadlinesFeedsPage extends React.Component<Props> {
                 sourceUrl={headline.source.url}
                 description={headline.summary}
                 imageUrl={headline.thumbnail}
-                date="2h trước"
+                date={momentFromNow(headline.publicationDate)}
+                sourceBaseUrl  = {headline.source.baseUrl}
+                sourceName={headline.source.displayName}
+                sourceImageUrl={findSourceLogo(headline.source.name)}
                 subs={items && items.length > 0 &&
                   <React.Fragment>{
                     items.map(item => (
                       <HeadlineFeed.Sub
                         title={item.title}
                         sourceUrl={item.source.url}
+                        sourceName={item.source.displayName}
+                        sourceBaseUrl={item.source.baseUrl}
+                        sourceImageUrl={findSourceLogo(item.source.name)}
+                        date={momentFromNow(item.publicationDate)}
                       />))
                   }
                   </React.Fragment>

@@ -15,6 +15,7 @@ type Props = {|
     +sourceImageUrl ?: string,
     +sourceName ? : string,
     +sourceUrl ?: string,
+    +sourceBaseUrl ?: string,
     +subs: React.Node,
 |}
 
@@ -28,22 +29,31 @@ function HeadlineFeed({
     sourceImageUrl,
     sourceName,
     sourceUrl,
+    sourceBaseUrl,
     subs,
 }: Props): React.Node {
-    const classes = cn("py-5", className);
+    const classes = cn("py-5 no-outline", className);
     return (
         <List.GroupItem className={classes}>
             <Media>
-                <Media.Object avatar objectURL={imageUrl} size="xxl" className="mr-4" />
+                <img src={imageUrl} href={sourceUrl} className="img-headline img-center-crop " target="_blank" rel="noopener noreferrer" />
                 <Media.Body>
                     <Media.Heading>
-                        <small className="float-right text-muted">{date}</small>
-                        <a href={sourceUrl} className="text-default text-bl">
+                        
+                        <div className="div-headline-source">
+                            <img src={sourceImageUrl} href={sourceBaseUrl} className="img-headline-sourcelogo" target="_blank" rel="noopener noreferrer" />
+                            <a className="text-default text-bl txt-headline-source" href={sourceBaseUrl}>{sourceName}</a>
+                            <span className="middle-dot-headline text-default text-bl">⬤</span>
+                            <span className="text-default text-bl txt-headline-source">{date}</span>
+                        <a href={sourceUrl} className="h4 fe fe-activity float-right text-muted"></a>
 
+                        </div>
+
+                        <a href={sourceUrl} className="text-default text-bl" target="_blank" rel="noopener noreferrer">
                             <h4 class="headline">{title}</h4>
                         </a>
                     </Media.Heading>
-                    <Text>{description}</Text>
+                    <div className="text-description-headline">{description}</div>
                     {subs && <Media.List>{subs}</Media.List>}
                 </Media.Body>
             </Media>

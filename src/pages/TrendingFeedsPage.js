@@ -42,7 +42,9 @@ export default class TrendingFeedsPage extends React.Component<Props> {
       page = this.props.page;
     }
 
-    if (page < 1) page = 1;
+    if (page < 1) {
+      page = 1;
+    }
     dispatch(fetchNewsList(page));
   }
 
