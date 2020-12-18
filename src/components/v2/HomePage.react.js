@@ -215,8 +215,9 @@ export default class Home extends React.Component<Props> {
       body = <Page.Content></Page.Content>
     }
 
+    let user =this.props.authData.user|| null;
     return (
-      <SiteWrapper showFooter={newsList.length != 0}>
+      <SiteWrapper showFooter={newsList.length != 0} currentUser={user}>
         {body}
       </SiteWrapper>
     )

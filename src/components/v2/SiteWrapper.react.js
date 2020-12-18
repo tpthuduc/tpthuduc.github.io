@@ -15,6 +15,7 @@ import {
 import type { NotificationProps } from "tabler-react";
 import InnerSiteWrapper from "../base/site/InnerSiteWrapper.react";
 import AliSite from "../base/site/AliSite";
+import { loadSavedUser } from "../../actions/AuthAction";
 
 type Props = {|
   +children: React.Node,
@@ -107,6 +108,10 @@ const formProps = {
 };
 
 class SiteWrapper extends React.Component<Props, State> {
+
+  constructor(props) {
+    super(props);
+  }
   state = {
     notificationsObjects: [
       {
@@ -143,12 +148,9 @@ class SiteWrapper extends React.Component<Props, State> {
   };
 
   render(): React.Node {
-    const {dispatch, isFetching, authData } = this.props;
+    const {dispatch, isFetching, currentUser } = this.props;
     
-    let user=null;
-    if(authData)
-     user = authData.user||null;
-
+    
     const notificationsObjects = this.state.notificationsObjects || [];
     const unreadCount = this.state.notificationsObjects.reduce(
       (a, v) => a || v.unread,
@@ -223,7 +225,7 @@ class SiteWrapper extends React.Component<Props, State> {
               ),
             unread: unreadCount,
           },
-          accountDropdown: accountDropdownPropsFunc(user),
+          accountDropdown: accountDropdownPropsFunc(currentUser),
 
         }}
         navProps={{ itemsObjects: navBarItems }}

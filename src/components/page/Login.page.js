@@ -17,7 +17,7 @@ export default class LoginPage extends React.Component<Props> {
     const {dispatch, isFetching, authData } = this.props;
     const strings = isFetching ? {buttonText : "Please wait"}: {};
     
-    if(authData && authData.success) {
+    if(authData && authData.user.email) {
       return <Redirect to="/" />
     }
 

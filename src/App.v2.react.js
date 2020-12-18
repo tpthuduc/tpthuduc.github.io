@@ -20,9 +20,11 @@ import "tabler-react/dist/Tabler.css";
 type Props = {||};
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)));
 
 function App(props: Props): React.Node {
+  
   return (
     <React.StrictMode>
       <Provider store={store}>

@@ -5,9 +5,7 @@ import RegisterPage from "../components/page/Register.page";
 
 
 function mapStateToProps({authReducers}) {
-    return {
-        userInfo: authReducers.userInfo,
-    }
+    return authReducers;
 }
 
 const RegisterContainer = connect(
