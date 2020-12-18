@@ -217,8 +217,9 @@ export default class TrendingFeedsPage extends React.Component<Props> {
       body = <Page.Content></Page.Content>
     }
 
+    let user = this.props.authData ? this.props.authData.user : undefined;
     return (
-      <SiteWrapper  showFooter={newsList.length != 0}>
+      <SiteWrapper showFooter={newsList.length != 0} currentUser={user}>
         {body}
       </SiteWrapper>
     )

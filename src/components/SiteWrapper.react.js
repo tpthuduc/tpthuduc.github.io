@@ -12,10 +12,8 @@ import {
   RouterContextProvider,
 } from "tabler-react";
 
-import type { NotificationProps } from "tabler-react";
+import { NotificationProps } from "tabler-react";
 import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
-import AliSite from "./base/site/AliSite";
-
 
 type Props = {|
   +children: React.Node,
@@ -84,9 +82,9 @@ const navBarItems: Array<navItem> = [
   } */
 ];
 
-const accountDropdownProps = {
+const accountDropdownPropsFunc = (user)=>(user)?{
   avatarURL: "https://s120-ava-talk.zadn.vn/4/c/d/3/0/120/09f385d32d7677e9ff00099536a7d200.jpg",
-  name: "Đình Trung Lê",
+  name: user.name,
   description: "Quận 9, Tp. Hcm",
   options: [
     { icon: "user", value: "Profile" },
@@ -94,12 +92,27 @@ const accountDropdownProps = {
     { icon: "mail", value: "Inbox", badge: "6" },
     { icon: "send", value: "Message" },
     { isDivider: true },
-    { icon: "help-circle", value: "Need help?" },
     { icon: "log-out", value: "Sign out" },
   ],
+}:{
+  avatarURL: "./images/default_avatar.jpg",
+  name: "Đăng nhập",
+  options: [
+    { icon: "user", value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
+    { isDivider: true },
+    { icon: "user-plus", value: "Register",to: "/register", LinkComponent: withRouter(NavLink) },
+  ]
+};
+
+const formProps = {
+
 };
 
 class SiteWrapper extends React.Component<Props, State> {
+
+  constructor(props) {
+    super(props);
+  }
   state = {
     notificationsObjects: [
       {
@@ -107,8 +120,7 @@ class SiteWrapper extends React.Component<Props, State> {
         avatarURL: "demo/faces/male/41.jpg",
         message: (
           <React.Fragment>
-            <strong>Nathan</strong> pushed new commit: Fix page load performance
-            issue.
+            Hello1
           </React.Fragment>
         ),
         time: "10 minutes ago",
@@ -118,7 +130,7 @@ class SiteWrapper extends React.Component<Props, State> {
         avatarURL: "demo/faces/female/1.jpg",
         message: (
           <React.Fragment>
-            <strong>Alice</strong> started new task: Tabler UI design.
+            hello 2
           </React.Fragment>
         ),
         time: "1 hour ago",
@@ -128,7 +140,7 @@ class SiteWrapper extends React.Component<Props, State> {
         avatarURL: "demo/faces/female/18.jpg",
         message: (
           <React.Fragment>
-            <strong>Rose</strong> deployed new version of NodeJS REST Api // V3
+            hello3
           </React.Fragment>
         ),
         time: "2 hours ago",
@@ -137,6 +149,9 @@ class SiteWrapper extends React.Component<Props, State> {
   };
 
   render(): React.Node {
+    const {dispatch, isFetching, currentUser } = this.props;
+    
+    
     const notificationsObjects = this.state.notificationsObjects || [];
     const unreadCount = this.state.notificationsObjects.reduce(
       (a, v) => a || v.unread,
@@ -211,7 +226,8 @@ class SiteWrapper extends React.Component<Props, State> {
               ),
             unread: unreadCount,
           },
-          accountDropdown: accountDropdownProps,
+          accountDropdown: accountDropdownPropsFunc(currentUser),
+
         }}
         navProps={{ itemsObjects: navBarItems }}
         routerContextComponentType={withRouter(RouterContextProvider)}

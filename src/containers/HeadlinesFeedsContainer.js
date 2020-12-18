@@ -9,11 +9,12 @@ import { fetchNewsList } from '../actions/HeadlinesFeedsAction';
 import HeadlinesFeedsPage from "../pages/HeadlinesFeedsPage";
 
 
-function mapStateToProps({headlinesFeedsReducer}) {
+function mapStateToProps({headlinesFeedsReducer, authReducers}) {
     return {
         list: headlinesFeedsReducer.list,
         page: headlinesFeedsReducer.page,
-        hasMore: headlinesFeedsReducer.hasMore
+        hasMore: headlinesFeedsReducer.hasMore,
+        ...authReducers
     }
 }
 
