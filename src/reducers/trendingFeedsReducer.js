@@ -1,5 +1,5 @@
 import { SHOW_NEWS_DETAIL } from '../constants/ActionTypes';
-import { RECEIVE_NEWS_LOAD_MORE, RECEIVE_NEWS_RELOAD, REQUEST_NEWS_LOAD_MORE, REQUEST_NEWS_RELOAD } from "../actions/NewsAction";
+import { RECEIVE_NEWS_LOAD_MORE, RECEIVE_NEWS_RELOAD, REQUEST_NEWS_LOAD_MORE, REQUEST_NEWS_RELOAD } from "../actions/TrendingFeedsAction";
 
 const initalState = {
     list: [],
@@ -8,7 +8,7 @@ const initalState = {
     hasMore: true
 }
 
-export default function reduceNews(state = initalState, action) {
+export default function trendingFeedsReducer(state = initalState, action) {
     console.log(action.type)
 
     switch (action.type) {

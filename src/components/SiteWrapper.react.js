@@ -12,10 +12,8 @@ import {
   RouterContextProvider,
 } from "tabler-react";
 
-import type { NotificationProps } from "tabler-react";
-import InnerSiteWrapper from "../base/site/InnerSiteWrapper.react";
-import AliSite from "../base/site/AliSite";
-import { loadSavedUser } from "../../actions/AuthAction";
+import { NotificationProps } from "tabler-react";
+import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
 
 type Props = {|
   +children: React.Node,
@@ -55,6 +53,9 @@ const navBarItems: Array<navItem> = [
   {
     value: "Phổ biến",
     icon: "globe",
+    to: "/populars",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
     /* subItems: [
       {
         value: "Cards Design",

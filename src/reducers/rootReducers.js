@@ -1,9 +1,11 @@
-import { combineReducers} from 'redux';
-import newsReducers from './newsReducers';
+import { combineReducers } from 'redux';
+import trendingFeedsReducer from './trendingFeedsReducer';
+import headlinesFeedsReducer from './headlinesFeedsReducer';
 import authReducers from './authReducers';
 
 const rootReducer = combineReducers({
-    newsReducers,
+    trendingFeedsReducer,
+    headlinesFeedsReducer,
     authReducers
 });
 

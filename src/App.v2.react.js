@@ -1,21 +1,20 @@
-import {HomePage} from "./containers/NewsListContainer";
 import LoginContainer from "./containers/LoginContainer";
 import RegisterContainer from "./containers/RegisterContainer";
 import DashboardPage from "./components/page/Dashboard.page";
 
-import Login from './components/Form/login';
-import Register from './components/Form/register';
-
 import * as React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware,compose } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from "./reducers/rootReducers";
-
 import "bootstrap";
 import "tabler-react/dist/Tabler.css";
+import "./App.css";
+import thunk from 'redux-thunk';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware,compose } from 'redux';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import rootReducer from "./reducers/rootReducers";
+import { TrendingFeeds } from "./containers/TrendingFeedsContainer";
+import { HeadlinesFeeds } from "./containers/HeadlinesFeedsContainer";
+
 
 type Props = {||};
 
@@ -30,13 +29,12 @@ function App(props: Props): React.Node {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route exact path='/' component={HomePage} />
+            <Route exact path='/' component={HeadlinesFeeds} />
+            <Route exact path='/headlines' component={HeadlinesFeeds} />
+            <Route exact path='/populars' component={TrendingFeeds}/>
             <Route exact path='/login' component={LoginContainer} />
             <Route exact path='/register' component={RegisterContainer} />
-            <Route exact path="/dashboard">
-              <DashboardPage/>
-            </Route>
-            
+            <Route exact path="/dashboard"><DashboardPage/></Route>
           </Switch>
           
         </Router>

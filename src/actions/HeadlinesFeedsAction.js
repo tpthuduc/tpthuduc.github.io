@@ -5,11 +5,11 @@ import * as types from '../constants/ActionTypes';
 import { loadApi, loadDefaultApi } from "../util/ApiUtil";
 
 
-export const REQUEST_NEWS_RELOAD = "REQUEST_NEWS_RELOAD";
-export const RECEIVE_NEWS_RELOAD = "RECEIVE_NEWS_RELOAD";
+export const REQUEST_NEWS_RELOAD = "REQUEST_NEWS_RELOAD_HEADLINES";
+export const RECEIVE_NEWS_RELOAD = "RECEIVE_NEWS_RELOAD_HEADLINES";
 
-export const REQUEST_NEWS_LOAD_MORE = "REQUEST_NEWS_LOAD_MORE";
-export const RECEIVE_NEWS_LOAD_MORE = "RECEIVE_NEWS_LOAD_MORE";
+export const REQUEST_NEWS_LOAD_MORE = "REQUEST_NEWS_LOAD_MORE_HEADLINES";
+export const RECEIVE_NEWS_LOAD_MORE = "RECEIVE_NEWS_LOAD_MORE_HEADLINES";
 
 
 function requestNewsListReload() {
@@ -50,12 +50,12 @@ export function fetchNewsList(page) {
     if (!page|| page == 0) {
         return dispatch => {
             dispatch(requestNewsListReload())
-            return loadDefaultApi("/news").then(req => dispatch(receiveNewsListReload(req)));
+            return loadDefaultApi("/news/feed/similarity").then(req => dispatch(receiveNewsListReload(req)));
         }
     } else {
         return dispatch => {
             dispatch(requestNewsListLoadMore())
-            return loadDefaultApi("/news?page="+(page+1)).then(req => dispatch(receiveNewsListLoadMore(req, page+1)));
+            return loadDefaultApi("/news/feed/similarity?page="+(page+1)).then(req => dispatch(receiveNewsListLoadMore(req, page+1)));
         }
     }
 }
