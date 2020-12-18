@@ -2,22 +2,18 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { userLoginFetch } from '../actions/AuthAction';
+import { postUserLogin } from '../actions/AuthAction';
 import Login from "../components/page/Login.page";
 
-
-function mapStateToProps({newsReducers}) {
-    return {
-        userInfo: newsReducers.userInfo,
-    }
+function mapStateToProps({authReducers}) {
+    return authReducers;
 }
 
 const mapDispatchToProps = dispatch => ({
-    userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
-  })
+    postUserLogin: userInfo => dispatch(postUserLogin(userInfo))
+  });
   
-
-
-export const LoginPage = connect(
-    mapDispatchToProps
+const LoginContainer = connect(
+    mapStateToProps
 )(Login)
+export default LoginContainer

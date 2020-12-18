@@ -1,15 +1,26 @@
 // @flow
 
 import * as React from "react";
+import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Formik } from "formik";
 import { LoginPage as TablerLoginPage } from "tabler-react";
-import { userLoginFetch } from '../../actions/AuthAction';
+import { postUserLogin } from '../../actions/AuthAction';
 
-
-class LoginPage extends React.Component {
+type Props = {};
+export default class LoginPage extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
+    const {dispatch, isFetching, authData } = this.props;
+    const strings = isFetching ? {buttonText : "Please wait"}: {};
+    
+    if(authData && authData.success) {
+      return <Redirect to="/" />
+    }
+
     return (
       <Formik
         initialValues={{
@@ -32,7 +43,8 @@ class LoginPage extends React.Component {
           values,
           { setSubmitting, setErrors /* setValues and other goodies */ }
         ) => {
-          this.props.userLoginFetch(values)
+          if(!isFetching)
+         dispatch(postUserLogin(values))
           // alert("Done!");
         }}
         render={({
@@ -42,6 +54,7 @@ class LoginPage extends React.Component {
           handleChange,
           handleBlur,
           handleSubmit,
+          strings,
           isSubmitting,
         }) => (
             <TablerLoginPage
@@ -57,9 +70,3 @@ class LoginPage extends React.Component {
     );
   }
 }
-
-const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
-})
-
-export default connect(null, mapDispatchToProps)(LoginPage);

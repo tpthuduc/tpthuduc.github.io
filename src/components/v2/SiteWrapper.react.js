@@ -16,7 +16,6 @@ import type { NotificationProps } from "tabler-react";
 import InnerSiteWrapper from "../base/site/InnerSiteWrapper.react";
 import AliSite from "../base/site/AliSite";
 
-
 type Props = {|
   +children: React.Node,
   +showFooter: boolean
@@ -81,11 +80,9 @@ const navBarItems: Array<navItem> = [
   } */
 ];
 
-let isLogined = true; 
-
-const accountDropdownProps = (isLogined)?{
+const accountDropdownPropsFunc = (user)=>(user)?{
   avatarURL: "https://s120-ava-talk.zadn.vn/4/c/d/3/0/120/09f385d32d7677e9ff00099536a7d200.jpg",
-  name: "Đình Trung Lê",
+  name: user.name,
   description: "Quận 9, Tp. Hcm",
   options: [
     { icon: "user", value: "Profile" },
@@ -93,16 +90,15 @@ const accountDropdownProps = (isLogined)?{
     { icon: "mail", value: "Inbox", badge: "6" },
     { icon: "send", value: "Message" },
     { isDivider: true },
-    { icon: "help-circle", value: "Need help?" },
     { icon: "log-out", value: "Sign out" },
   ],
 }:{
-  avatarURL: "./burger.png",
-  name: "Login / Register",
-  description: "Quận 9, Tp. Hcm",
+  avatarURL: "./images/default_avatar.jpg",
+  name: "Đăng nhập",
   options: [
-    { icon: "login", value: "Login" },
-    { icon: "register", value: "Register" },
+    { icon: "user", value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
+    { isDivider: true },
+    { icon: "user-plus", value: "Register",to: "/register", LinkComponent: withRouter(NavLink) },
   ]
 };
 
@@ -147,6 +143,12 @@ class SiteWrapper extends React.Component<Props, State> {
   };
 
   render(): React.Node {
+    const {dispatch, isFetching, authData } = this.props;
+    
+    let user=null;
+    if(authData)
+     user = authData.user||null;
+
     const notificationsObjects = this.state.notificationsObjects || [];
     const unreadCount = this.state.notificationsObjects.reduce(
       (a, v) => a || v.unread,
@@ -221,7 +223,7 @@ class SiteWrapper extends React.Component<Props, State> {
               ),
             unread: unreadCount,
           },
-          accountDropdown: (this.props.token) ? accountDropdownProps : formProps,
+          accountDropdown: accountDropdownPropsFunc(user),
 
         }}
         navProps={{ itemsObjects: navBarItems }}

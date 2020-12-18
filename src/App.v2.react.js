@@ -1,7 +1,7 @@
 import {HomePage} from "./containers/NewsListContainer";
-import {LoginPage} from "./containers/LoginContainer";
-
-
+import LoginContainer from "./containers/LoginContainer";
+import RegisterContainer from "./containers/RegisterContainer";
+import DashboardPage from "./components/page/Dashboard.page";
 
 import Login from './components/Form/login';
 import Register from './components/Form/register';
@@ -29,13 +29,12 @@ function App(props: Props): React.Node {
         <Router>
           <Switch>
             <Route exact path='/' component={HomePage} />
-            <Route exact path='/login' component={LoginPage} />
-            <Route exact path='/l' >
-              <Login/>
+            <Route exact path='/login' component={LoginContainer} />
+            <Route exact path='/register' component={RegisterContainer} />
+            <Route exact path="/dashboard">
+              <DashboardPage/>
             </Route>
-            <Route exact path="/register">
-                <Register />
-            </Route>
+            
           </Switch>
           
         </Router>
