@@ -188,7 +188,7 @@ export default class TrendingFeedsPage extends React.Component<Props> {
 
     let body;
     if (newsList.length != 0) {
-      body = <Page.Content title="Phổ biến">
+      body = <Page.Content title="Xu huớng">
         <Grid.Row cards deck>
           {mainNews}
         </Grid.Row>

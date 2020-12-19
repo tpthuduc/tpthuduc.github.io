@@ -31,7 +31,7 @@ function App(props: Props): React.Node {
           <Switch>
             <Route exact path='/' component={HeadlinesFeeds} />
             <Route exact path='/headlines' component={HeadlinesFeeds} />
-            <Route exact path='/populars' component={TrendingFeeds}/>
+            <Route exact path='/trendings' component={TrendingFeeds}/>
             <Route exact path='/login' component={LoginContainer} />
             <Route exact path='/register' component={RegisterContainer} />
             <Route exact path="/dashboard"><DashboardPage/></Route>

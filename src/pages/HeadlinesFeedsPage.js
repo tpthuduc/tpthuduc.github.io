@@ -43,7 +43,9 @@ export default class HeadlinesFeedsPage extends React.Component<Props> {
       page = this.props.page;
     }
 
-    if (page < 1) page = 1;
+    if (page < 1) {
+      page = 1;
+    }
     dispatch(fetchNewsList(page));
   }
 
@@ -71,7 +73,7 @@ export default class HeadlinesFeedsPage extends React.Component<Props> {
                 description={headline.summary}
                 imageUrl={headline.thumbnail}
                 date={momentFromNow(headline.publicationDate)}
-                sourceBaseUrl  = {headline.source.baseUrl}
+                sourceBaseUrl={headline.source.baseUrl}
                 sourceName={headline.source.displayName}
                 sourceImageUrl={findSourceLogo(headline.source.name)}
                 subs={items && items.length > 0 &&
@@ -141,7 +143,7 @@ export default class HeadlinesFeedsPage extends React.Component<Props> {
       body = <Page.Content></Page.Content>
     }
 
-    let user =this.props.authData ? this.props.authData.user : undefined;
+    let user = this.props.authData ? this.props.authData.user : undefined;
     return (
       <SiteWrapper showFooter={newsList.length != 0} currentUser={user}>
         {body}
