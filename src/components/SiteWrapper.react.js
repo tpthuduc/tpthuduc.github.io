@@ -47,9 +47,9 @@ const navBarItems: Array<navItem> = [
     useExact: true,
   },
   {
-    value: "Phổ biến",
+    value: "Xu hướng",
     icon: "globe",
-    to: "/populars",
+    to: "/trendings",
     LinkComponent: withRouter(NavLink),
     useExact: true,
     /* subItems: [
