@@ -47,7 +47,7 @@ export function loadNewsDetail(id) {
 }
 
 export function fetchNewsList(page) {
-    if (!page|| page == 0) {
+    if (!page|| page === 0) {
         return dispatch => {
             dispatch(requestNewsListReload())
             return loadDefaultApi("/news").then(req => dispatch(receiveNewsListReload(req)));

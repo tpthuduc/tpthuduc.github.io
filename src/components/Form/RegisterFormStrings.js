@@ -1,6 +1,8 @@
 const strings = {
     title: "Create New Account",
     buttonText: "Create Account",
+    usernameLabel: "Username",
+    usernamePlaceholder: "Enter username",
     nameLabel: "Name",
     namePlaceholder: "Enter name",
     emailLabel: "Email Address",

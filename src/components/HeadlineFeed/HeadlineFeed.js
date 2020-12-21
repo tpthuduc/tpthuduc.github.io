@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import cn from "classnames";
-import { Header, Text, Media, List } from "tabler-react";
+import {  Media, List } from "tabler-react";
 import SubHeadlineFeed from "./SubHeadlineFeed";
 
 type Props = {|

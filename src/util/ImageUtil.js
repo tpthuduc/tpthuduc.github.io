@@ -24,7 +24,7 @@ const sourceLogos = [
 const defaultLogo = "/images/source_logos/rss.jpg";
 
 export function findSourceLogo(name) {
-    const logos = sourceLogos.find(element => element.name == name);
+    const logos = sourceLogos.find(element => element.name === name);
     if (logos) {
         return logos.image
     } else {

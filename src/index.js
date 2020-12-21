@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Router, Switch } from 'react-router-dom';
+// import { Route, Router, Switch } from 'react-router-dom';
 
 import AppV2 from "./App.v2.react";
 const rootElement = document.getElementById("root");

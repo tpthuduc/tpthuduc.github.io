@@ -1,8 +1,5 @@
 // @flow
 
-
-import React from "react";
-
 import { connect } from "react-redux";
 
 import { fetchNewsList } from '../actions/HeadlinesFeedsAction';

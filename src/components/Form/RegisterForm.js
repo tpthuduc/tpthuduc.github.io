@@ -1,50 +1,24 @@
-// @flow
-
 import * as React from "react";
 
 import {
   FormCard,
   FormTextInput,
   FormCheckboxInput,
-  StandaloneFormPage,
+  StandaloneFormPage
 } from "tabler-react";
 import withTouchedErrors from "../../util/withTouchedErrors.react";
 
-import defaultStrings from "./RegisterPageString";
+import defaultStrings from "./RegisterFormStrings";
 // import type { stringTypes } from "./RegisterPage.strings";
 
 import { FormEvents, FocusEvents } from "tabler-react";
 
-type fieldTypes = {|
-  name?: string,
-  email?: string,
-  password?: string,
-  terms?: string,
-|};
-
-type touchedTypes = {|
-  name?: boolean,
-  email?: boolean,
-  password?: boolean,
-  terms?: boolean,
-|};
-
-type Props = {|
-  ...FormEvents,
-  ...FocusEvents,
-  +strings?: stringTypes,
-  +action?: string,
-  +method?: string,
-  +values?: fieldTypes,
-  +errors?: fieldTypes,
-  +touched?: touchedTypes,
-|};
 
 /**
  * A register page
  * Can be easily wrapped with form libraries like formik and redux-form
  */
-function RegisterPage(props: Props): React.Node {
+function RegisterForm(props) {
   const {
     action,
     method,
@@ -57,7 +31,9 @@ function RegisterPage(props: Props): React.Node {
   } = props;
 
   return (
-    <StandaloneFormPage imageURL={"./demo/logo.svg"}>
+    <StandaloneFormPage imageURL={"./images/local_news.svg"}>
+
+
       <FormCard
         buttonText={strings.buttonText || defaultStrings.buttonText}
         title={strings.title || defaultStrings.title}
@@ -77,7 +53,7 @@ function RegisterPage(props: Props): React.Node {
           error={errors && errors.name}
         />
         <FormTextInput
-          name="Địa phương"
+          name="email"
           label={strings.emailLabel || defaultStrings.emailLabel}
           placeholder={
             strings.emailPlaceholder || defaultStrings.emailPlaceholder
@@ -86,6 +62,17 @@ function RegisterPage(props: Props): React.Node {
           onBlur={onBlur}
           value={values && values.email}
           error={errors && errors.email}
+        />
+        <FormTextInput
+          name="username"
+          label={strings.usernamePlaceholder || defaultStrings.usernameLabel}
+          placeholder={
+            strings.usernamePlaceholder || defaultStrings.usernamePlaceholder
+          }
+          onChange={onChange}
+          onBlur={onBlur}
+          value={values && values.username}
+          error={errors && errors.username}
         />
 
         <FormTextInput
@@ -112,8 +99,8 @@ function RegisterPage(props: Props): React.Node {
   );
 }
 
-const RegisterPageWithTouchedErrors: React.ComponentType<Props> = withTouchedErrors(
-  ["name", "email", "password", "terms"]
-)(RegisterPage);
+const RegisterPageWithTouchedErrors = withTouchedErrors(
+  ["name", "email", "email", "password", "terms"]
+)(RegisterForm);
 
 export default RegisterPageWithTouchedErrors;

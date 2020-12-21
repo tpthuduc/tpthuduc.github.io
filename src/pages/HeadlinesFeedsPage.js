@@ -1,32 +1,20 @@
-// @flow
-
 import * as React from "react";
 import PropTypes from 'prop-types';
 import { fetchNewsList } from '../actions/HeadlinesFeedsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../util/ImageUtil';
-import { momentCalendar, momentFromNow } from '../util/CommonUtil';
+import { momentFromNow } from '../util/CommonUtil';
 
 import {
   Page,
   Grid,
   Card,
-  Text,
-  Table,
-  Alert,
-  Progress,
-  Button, StatsCard,
-  BlogCard,
-  Loader
 } from "tabler-react";
 
 import SiteWrapper from "../components/SiteWrapper.react";
 import HeadlineFeed from "../components/HeadlineFeed";
-import moment from "moment";
 
-type Props = {};
-
-export default class HeadlinesFeedsPage extends React.Component<Props> {
+export default class HeadlinesFeedsPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -143,7 +131,7 @@ export default class HeadlinesFeedsPage extends React.Component<Props> {
 
     let user =this.props.authData ? this.props.authData.user : undefined;
     return (
-      <SiteWrapper showFooter={newsList.length != 0} currentUser={user}>
+      <SiteWrapper showFooter={newsList.length != 0} currentUser={user} dispatch={this.props.dispatch}>
         {body}
       </SiteWrapper>
     )

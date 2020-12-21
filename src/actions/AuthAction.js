@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from '../util/AuthUtil';
 
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 export const RECEIVE_REGISTER = "RECEIVE_REGISTER";
@@ -10,6 +10,10 @@ export const REQUEST_REGISTER = "REQUEST_REGISTER";
 export const REQUEST_SAVED_USER = "REQUEST_SAVED_USER";
 export const RECEIVE_SAVED_USER = "RECEIVE_SAVED_USER";
 
+export const REQUEST_LOGOUT = "REQUEST_LOGOUT";
+export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT";
+
+
 export const postUserLogin = user => {
   return dispatch => {
     dispatch(requestLogin())
@@ -17,8 +21,9 @@ export const postUserLogin = user => {
       .then(res => {
         let data = res.data
         if (!data) return;
-        if (data.message) {
+        if (!data.success) {
           console.log(data.message);
+          dispatch(receiveRegister({message: data.message}))
         } else {
           localStorage.setItem("token", data.token.split(" ")[1])
           dispatch(receiveLogin(data))
@@ -35,23 +40,24 @@ export const postUserLogin = user => {
   }
 }
 
-export const postUserRegister = user => {
+export const postUserRegister = formData => {
   return dispatch => {
     dispatch(requestRegister())
     var user = {
-      username: user.username,
-      password: user.password,
-      email: user.email,
-      name: user.name
+      username: formData.username,
+      password: formData.password,
+      email: formData.email,
+      name: formData.name
     }
     return axios.post(process.env.REACT_APP_BASE_URL + "/auth/register", user)
       .then(res => {
         let data = res.data
         if (!data) return;
-        if (data.message) {
+        if (!data.success) {
           console.log(data.message);
+          dispatch(receiveRegister({message: data.message}))
         } else {
-          localStorage.setItem("token", data.token.split(" ")[1])
+          localStorage.setItem("token", data.token)
           dispatch(receiveRegister(data))
         }
       })
@@ -72,8 +78,18 @@ export const loadSavedUser = () => {
     dispatch(requestSavedUser())
     const token = localStorage.getItem("token");
 
-    var user = jwt_decode(token || '');
+    var user = jwtDecode(token);
     dispatch(receiveSavedUser(user))
+
+  }
+}
+
+export const LogoutUser = () => {
+  return dispatch => {
+    dispatch(requestLogout())
+    localStorage.removeItem("token");
+    dispatch(receiveLogout())
+
 
   }
 }
@@ -103,4 +119,15 @@ const requestSavedUser = () => ({
 const receiveSavedUser = userObj => ({
   type: RECEIVE_SAVED_USER,
   payload: userObj
+})
+
+
+const requestLogout = () => ({
+  type: REQUEST_LOGOUT,
+
+})
+
+const receiveLogout = () => ({
+  type: RECEIVE_LOGOUT,
+
 })

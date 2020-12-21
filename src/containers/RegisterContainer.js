@@ -1,7 +1,5 @@
-import React from "react";
-
 import { connect } from "react-redux";
-import RegisterPage from "../components/page/Register.page";
+import RegisterPage from "../pages/RegisterPage";
 
 
 function mapStateToProps({authReducers}) {

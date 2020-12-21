@@ -2,13 +2,12 @@
 
 import * as React from "react";
 import {Redirect} from 'react-router-dom'
-import { connect } from 'react-redux';
 import { Formik } from "formik";
-import { LoginPage as TablerLoginPage } from "tabler-react";
-import { postUserLogin } from '../../actions/AuthAction';
+import RegisterForm from "../components/Form/RegisterForm";
+import { postUserRegister } from '../actions/AuthAction';
 
 type Props = {};
-export default class LoginPage extends React.Component<Props> {
+export default class RegisterPage extends React.Component<Props> {
   constructor(props) {
     super(props);
   }
@@ -26,6 +25,9 @@ export default class LoginPage extends React.Component<Props> {
         initialValues={{
           email: "",
           password: "",
+          name: "",
+          terms: false,
+          username: ""
         }}
         validate={values => {
           // same as above, but feel free to move this into a class method now.
@@ -44,7 +46,7 @@ export default class LoginPage extends React.Component<Props> {
           { setSubmitting, setErrors /* setValues and other goodies */ }
         ) => {
           if(!isFetching)
-         dispatch(postUserLogin(values))
+         dispatch(postUserRegister(values))
           // alert("Done!");
         }}
         render={({
@@ -57,7 +59,7 @@ export default class LoginPage extends React.Component<Props> {
           strings,
           isSubmitting,
         }) => (
-            <TablerLoginPage
+            <RegisterForm
               onSubmit={handleSubmit}
               onChange={handleChange}
               onBlur={handleBlur}

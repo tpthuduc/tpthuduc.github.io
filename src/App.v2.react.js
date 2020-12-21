@@ -1,6 +1,6 @@
 import LoginContainer from "./containers/LoginContainer";
 import RegisterContainer from "./containers/RegisterContainer";
-import DashboardPage from "./components/page/Dashboard.page";
+import DashboardPage from "./pages/DashboardPage";
 
 import * as React from "react";
 import "bootstrap";
@@ -14,15 +14,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import rootReducer from "./reducers/rootReducers";
 import { TrendingFeeds } from "./containers/TrendingFeedsContainer";
 import { HeadlinesFeeds } from "./containers/HeadlinesFeedsContainer";
-
-
-type Props = {||};
+import { RegisterPage } from "tabler-react";
+import ViewDetailRedirect from "./components/ViewDetailRedirect";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)));
 
-function App(props: Props): React.Node {
+function App(props) {
   
   return (
     <React.StrictMode>
@@ -35,6 +34,7 @@ function App(props: Props): React.Node {
             <Route exact path='/login' component={LoginContainer} />
             <Route exact path='/register' component={RegisterContainer} />
             <Route exact path="/dashboard"><DashboardPage/></Route>
+            <Route exact path="/detail/:id" component={ViewDetailRedirect} />
           </Switch>
           
         </Router>

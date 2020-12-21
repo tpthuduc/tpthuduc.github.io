@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { postUserLogin } from '../actions/AuthAction';
-import Login from "../components/page/Login.page";
+import Login from "../pages/LoginPage";
 
 function mapStateToProps({authReducers}) {
     return authReducers;

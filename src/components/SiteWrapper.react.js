@@ -4,15 +4,11 @@ import * as React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 
 import {
-  Site,
-  Nav,
-  Grid,
-  List,
-  Button,
   RouterContextProvider,
 } from "tabler-react";
 
 import { NotificationProps } from "tabler-react";
+import { LogoutUser } from "../actions/AuthAction";
 import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
 
 type Props = {|
@@ -82,31 +78,6 @@ const navBarItems: Array<navItem> = [
   } */
 ];
 
-const accountDropdownPropsFunc = (user)=>(user)?{
-  avatarURL: "https://s120-ava-talk.zadn.vn/4/c/d/3/0/120/09f385d32d7677e9ff00099536a7d200.jpg",
-  name: user.name,
-  description: "Quận 9, Tp. Hcm",
-  options: [
-    { icon: "user", value: "Profile" },
-    { icon: "settings", value: "Settings" },
-    { icon: "mail", value: "Inbox", badge: "6" },
-    { icon: "send", value: "Message" },
-    { isDivider: true },
-    { icon: "log-out", value: "Sign out" },
-  ],
-}:{
-  avatarURL: "./images/default_avatar.jpg",
-  name: "Đăng nhập",
-  options: [
-    { icon: "user", value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
-    { isDivider: true },
-    { icon: "user-plus", value: "Register",to: "/register", LinkComponent: withRouter(NavLink) },
-  ]
-};
-
-const formProps = {
-
-};
 
 class SiteWrapper extends React.Component<Props, State> {
 
@@ -149,9 +120,44 @@ class SiteWrapper extends React.Component<Props, State> {
   };
 
   render(): React.Node {
-    const {dispatch, isFetching, currentUser } = this.props;
-    
-    
+    const { dispatch, currentUser } = this.props;
+
+
+    const actionLogout = () => {
+      dispatch(LogoutUser())
+    }
+
+
+    const accountDropdownPropsFunc = (user) => {
+      if (user) {
+        return {
+          avatarURL: "https://s120-ava-talk.zadn.vn/4/c/d/3/0/120/09f385d32d7677e9ff00099536a7d200.jpg",
+          name: user.name,
+          description: "Quận 9, Tp. Hcm",
+          options: [
+            { icon: "user", value: "Profile" },
+            { icon: "settings", value: "Settings" },
+            { icon: "mail", value: "Inbox", badge: "6" },
+            { icon: "send", value: "dashboard",active: user.role===1, to:"/dashboard", LinkComponent: withRouter(NavLink) },
+            { isDivider: true },
+            { icon: "log-out", value: <span onClick={actionLogout}>logout</span>,to:"/", LinkComponent: withRouter(NavLink) },
+          ],
+        };
+      }
+      else {
+        return {
+          avatarURL: "./images/default_avatar.jpg",
+          name: "Đăng nhập",
+          options: [
+            { icon: "user", value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
+            { isDivider: true },
+            { icon: "user-plus", value: "Register", to: "/register", LinkComponent: withRouter(NavLink) },
+          ]
+        };
+
+      }
+    }
+
     const notificationsObjects = this.state.notificationsObjects || [];
     const unreadCount = this.state.notificationsObjects.reduce(
       (a, v) => a || v.unread,
@@ -231,8 +237,7 @@ class SiteWrapper extends React.Component<Props, State> {
         }}
         navProps={{ itemsObjects: navBarItems }}
         routerContextComponentType={withRouter(RouterContextProvider)}
-        footerProps={footerProps}
-      >
+        footerProps={footerProps}>
         {this.props.children}
       </InnerSiteWrapper>
     );
