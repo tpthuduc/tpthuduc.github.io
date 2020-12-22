@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react";
 import PropTypes from 'prop-types';
 import { fetchNewsList } from '../actions/TrendingFeedsAction';
@@ -15,20 +13,14 @@ import {
 
 import SiteWrapper from "../components/SiteWrapper.react";
 
-type Props = {};
-
-export default class TrendingFeedsPage extends React.Component<Props> {
-  constructor(props) {
-    super(props);
-  }
-
+export default class TrendingFeedsPage extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const dispatch = this.props.dispatch;
     dispatch(fetchNewsList());
   }
 
   loadMoreData = () => {
-    const { dispatch } = this.props;
+    const dispatch = this.props.dispatch;
     let page = 1;
     if (this.props && this.props.page) {
       page = this.props.page;

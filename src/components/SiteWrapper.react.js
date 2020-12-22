@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 
@@ -7,38 +5,9 @@ import {
   RouterContextProvider,
 } from "tabler-react";
 
-import { NotificationProps } from "tabler-react";
 import { LogoutUser } from "../actions/AuthAction";
 import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
-
-type Props = {|
-  +children: React.Node,
-  +showFooter: boolean
-    |};
-
-type State = {|
-  notificationsObjects: Array < NotificationProps >,
-|};
-
-type subNavItem = {|
-  +value: string,
-  +to ?: string,
-  +icon ?: string,
-  +LinkComponent ?: React.ElementType,
-  +useExact ?: boolean,
-|};
-
-type navItem = {|
-  +value: string,
-  +to ?: string,
-  +icon ?: string,
-  +active ?: boolean,
-  +LinkComponent ?: React.ElementType,
-  +subItems ?: Array < subNavItem >,
-  +useExact ?: boolean,
-|};
-
-const navBarItems: Array<navItem> = [
+const navBarItems= [
   {
     value: "Trang chủ",
     to: "/",
@@ -79,11 +48,8 @@ const navBarItems: Array<navItem> = [
 ];
 
 
-class SiteWrapper extends React.Component<Props, State> {
+class SiteWrapper extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
   state = {
     notificationsObjects: [
       {
@@ -119,7 +85,7 @@ class SiteWrapper extends React.Component<Props, State> {
     ],
   };
 
-  render(): React.Node {
+  render() {
     const { dispatch, currentUser } = this.props;
 
 

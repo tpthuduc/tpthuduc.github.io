@@ -1,17 +1,10 @@
-// @flow
-
 import * as React from "react";
 import {Redirect} from 'react-router-dom'
 import { Formik } from "formik";
 import RegisterForm from "../components/Form/RegisterForm";
 import { postUserRegister } from '../actions/AuthAction';
 
-type Props = {};
-export default class RegisterPage extends React.Component<Props> {
-  constructor(props) {
-    super(props);
-  }
-
+export default class RegisterPage extends React.Component {
   render() {
     const {dispatch, isFetching, authData } = this.props;
     const strings = isFetching ? {buttonText : "Please wait"}: {};

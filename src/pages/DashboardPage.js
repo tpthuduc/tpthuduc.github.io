@@ -1,5 +1,3 @@
-// @flow
-
 import * as React from "react";
 
 import {
@@ -73,34 +71,7 @@ function DashboardPage() {
                 data={{
                   columns: [
                     // each columns data
-                    [
-                      "data1",
-                      0,
-                      5,
-                      1,
-                      2,
-                      7,
-                      5,
-                      6,
-                      8,
-                      24,
-                      7,
-                      12,
-                      5,
-                      6,
-                      3,
-                      2,
-                      2,
-                      6,
-                      30,
-                      10,
-                      10,
-                      15,
-                      14,
-                      47,
-                      65,
-                      55,
-                    ],
+                    ["data1", 0, 5, 1, 2, 7, 5, 6, 8, 24, 7, 12, 5, 6, 3, 2, 2, 6, 30, 10, 10, 15, 14, 47, 65, 55,],
                   ],
                   type: "area", // default type of chart
                   groups: [["data1", "data2", "data3"]],
@@ -142,7 +113,7 @@ function DashboardPage() {
                 }}
                 tooltip={{
                   format: {
-                    title: function(x) {
+                    title: function (x) {
                       return "";
                     },
                   },
@@ -627,7 +598,7 @@ function DashboardPage() {
                       }}
                       tooltip={{
                         format: {
-                          title: function(x) {
+                          title: function (x) {
                             return "";
                           },
                         },
@@ -689,7 +660,7 @@ function DashboardPage() {
                       }}
                       tooltip={{
                         format: {
-                          title: function(x) {
+                          title: function (x) {
                             return "";
                           },
                         },
@@ -751,7 +722,7 @@ function DashboardPage() {
                       }}
                       tooltip={{
                         format: {
-                          title: function(x) {
+                          title: function (x) {
                             return "";
                           },
                         },
@@ -813,7 +784,7 @@ function DashboardPage() {
                       }}
                       tooltip={{
                         format: {
-                          title: function(x) {
+                          title: function (x) {
                             return "";
                           },
                         },

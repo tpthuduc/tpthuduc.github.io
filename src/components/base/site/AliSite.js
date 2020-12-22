@@ -1,14 +1,9 @@
-// @flow
-
 import * as React from "react";
 import AliHeader from "./AliHeader";
 import {Site} from "tabler-react";
 
-type Props = {|
-+children: React.Node,
-|};
 
-function AliSite(props: Props): React.Node {
+function AliSite(props) {
     return props.children;
 }
 

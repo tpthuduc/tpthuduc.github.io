@@ -1,21 +1,6 @@
-// @flow
-
 import * as React from "react";
 import AliLogo from "./AliLogo";
 import {AccountDropdown, Container, Notification} from "tabler-react";
-
-export type Props = {|
-+children?: React.Node,
-+align?: string,
-+href?: string,
-+imageURL?: string,
-+title?: string,
-+description: string,
-+notificationsTray?: NotificationTray.Props,
-+accountDropdown?: AccountDropdown.Props,
-+navItems?: React.Node,
-+onMenuToggleClick?: () => void,
-|};
 
 const AliHeader = ({
     children,
@@ -29,7 +14,7 @@ const AliHeader = ({
     accountDropdown: accountDropdownFromProps,
     navItems,
     onMenuToggleClick,
-}: Props) : React.Node => {
+})  => {
 
 const notificationsTray = notificationsTrayFromProps && 
 React.createElement(Notification.Tray, notificationsTrayFromProps);
