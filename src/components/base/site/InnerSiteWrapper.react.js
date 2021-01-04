@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Page, Site, Nav} from "tabler-react";
+import { Page, Site, Nav } from "tabler-react";
 
 import AliHeader from "./AliHeader";
 
@@ -11,8 +11,8 @@ class InnerSiteWrapper extends React.PureComponent {
         collapseMobileMenu: true,
     }
 
-    handleCollapseMobileMenu = () =>{ 
-        this.setState(s => ({collapseMobileMenu: !s.collapseMobileMenu}))
+    handleCollapseMobileMenu = () => {
+        this.setState(s => ({ collapseMobileMenu: !s.collapseMobileMenu }))
     };
 
     render() {
@@ -20,31 +20,31 @@ class InnerSiteWrapper extends React.PureComponent {
             headerProps,
             navProps,
             footerProps,
-            children, 
+            children,
             routerContextComponentType,
-    }= this.props;
+        } = this.props;
 
-    const headerPropsWithToggleClick = {
-        ...headerProps,
-        onMenuToggleClick: this.handleCollapseMobileMenu,
-    };
+        const headerPropsWithToggleClick = {
+            ...headerProps,
+            onMenuToggleClick: this.handleCollapseMobileMenu,
+        };
 
-    const header = React.createElement(AliHeader, headerPropsWithToggleClick);
-    const navPropsWithCollapse = {
-        ...navProps,
-        collapse: this.state.collapseMobileMenu,
-        routerContextComponentType: routerContextComponentType,
-    };
+        const header = React.createElement(AliHeader, headerPropsWithToggleClick);
+        const navPropsWithCollapse = {
+            ...navProps,
+            collapse: this.state.collapseMobileMenu,
+            routerContextComponentType: routerContextComponentType,
+        };
 
-    const nav = React.createElement(Site.Nav, navPropsWithCollapse);
+        const nav = React.createElement(Site.Nav, navPropsWithCollapse);
 
-    const footer = React.createElement(Site.Footer, footerProps);
+        const footer = React.createElement(Site.Footer, footerProps);
         return (
             <Page>
                 <Page.Main>
-                  {header}
-                  {nav}
-                  {children}
+                    {header}
+                    {nav}
+                    {children}
                 </Page.Main>
                 {footer}
             </Page>

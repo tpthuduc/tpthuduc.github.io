@@ -42,13 +42,13 @@ export default class HeadlinesFeedsPage extends React.Component {
     console.log(newsList);
 
     const feeds = [];
-    if (newsList.length == 0) {
+    if (newsList.length === 0) {
       /* there are no item in response list */
     } else {
 
       for (var i = 0; i < newsList.length; i++) {
         const items = newsList[i].data.slice(0, newsList.length > 5 ? 5 : newsList.length);
-        if (items.length == 0) {
+        if (items.length === 0) {
           break;
         }
         const headline = items.shift();
@@ -86,7 +86,7 @@ export default class HeadlinesFeedsPage extends React.Component {
     }
 
     let endOfPage;
-    if (!this.props.hasMore && newsList.length != 0) {
+    if (!this.props.hasMore && newsList.length !== 0) {
       endOfPage =
         <div class="col-12 d-flex justify-content-center">
           <div class="text-muted bold" style={{
@@ -100,7 +100,7 @@ export default class HeadlinesFeedsPage extends React.Component {
     }
 
     let body;
-    if (newsList.length != 0) {
+    if (newsList.length !== 0) {
       body = <Page.Content title="Tin Chính">
         <InfiniteScroll
           style={{
@@ -133,7 +133,7 @@ export default class HeadlinesFeedsPage extends React.Component {
 
     let user = this.props.authData ? this.props.authData.user : undefined;
     return (
-      <SiteWrapper showFooter={newsList.length != 0} currentUser={user} dispatch={this.props.dispatch}>
+      <SiteWrapper showFooter={newsList.length !== 0} currentUser={user} dispatch={this.props.dispatch}>
         {body}
       </SiteWrapper>
     )

@@ -38,7 +38,7 @@ export default class TrendingFeedsPage extends React.Component {
 
     const mainNews = [];
     const moreNews = [];
-    if (newsList.length == 0) {
+    if (newsList.length === 0) {
       /* there are no item in response list */
     } else if (newsList.length <= 7) {
       /* no more than 7 items */
@@ -116,7 +116,7 @@ export default class TrendingFeedsPage extends React.Component {
         </Grid.Col>
         );
 
-      for (var i = 3; i < 7; i++) {
+      for (let i = 3; i < 7; i++) {
         let item = newsList[i];
         mainNews.push(
           <Grid.Col width={12} lg={6} xl={3} md={6}>
@@ -135,7 +135,7 @@ export default class TrendingFeedsPage extends React.Component {
           </Grid.Col>)
       }
 
-      for (var i = 6; i < newsList.length; i++) {
+      for (let i = 6; i < newsList.length; i++) {
         let item = newsList[i];
         moreNews.push(
           <Grid.Col width={12}>
@@ -159,7 +159,7 @@ export default class TrendingFeedsPage extends React.Component {
     }
 
     let endOfPage;
-    if (!this.props.hasMore && newsList.length != 0) endOfPage =
+    if (!this.props.hasMore && newsList.length !== 0) endOfPage =
       <div class="col-12 d-flex justify-content-center">
         <div class="text-muted bold" style={{
           backgroundColor: "transparent",
@@ -171,7 +171,7 @@ export default class TrendingFeedsPage extends React.Component {
       </div>
 
     let body;
-    if (newsList.length != 0) {
+    if (newsList.length !== 0) {
       body = <Page.Content title="Xu huớng">
         <Grid.Row cards deck>
           {mainNews}
@@ -203,7 +203,7 @@ export default class TrendingFeedsPage extends React.Component {
 
     let user = this.props.authData ? this.props.authData.user : undefined;
     return (
-      <SiteWrapper showFooter={newsList.length != 0} currentUser={user} dispatch={this.props.dispatch}>
+      <SiteWrapper showFooter={newsList.length !== 0} currentUser={user} dispatch={this.props.dispatch}>
         {body}
       </SiteWrapper>
     )
