@@ -70,7 +70,7 @@ export function fetchNewsList(page) {
         // this is load more
         return dispatch => {
             dispatch(requestNewsListLoadMore())
-            return apiGet("/news?page=" + (page + 1)).then(req => dispatch(receiveNewsListLoadMore(req, page + 1)));
+            return apiGet("/news?page=" + (page + 1)).then(result => dispatch(receiveNewsListLoadMore(page + 1, result.data, result.statusCode, result.message)));
         }
     }
 }

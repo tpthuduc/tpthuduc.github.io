@@ -163,7 +163,8 @@ export default class TrendingFeedsPage extends React.Component {
     }
 
     let endOfPage;
-    if (!trendingFeedsReducer.hasMore && newsList.length !== 0) endOfPage =
+    if (!trendingFeedsReducer.hasMore && newsList.length !== 0) {
+      endOfPage =
       <div class="col-12 d-flex justify-content-center">
         <div class="text-muted bold" style={{
           backgroundColor: "transparent",
@@ -173,7 +174,7 @@ export default class TrendingFeedsPage extends React.Component {
           boxShadow: "none"
         }}>Oop! Hết tin rồi, quay lại sau nhé!</div>
       </div>
-
+  }
     let body;
     if (newsList.length !== 0) {
       body = <Page.Content title="Xu huớng">
