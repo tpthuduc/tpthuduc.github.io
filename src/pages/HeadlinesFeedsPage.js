@@ -13,6 +13,7 @@ import {
 
 import SiteWrapper from "../components/SiteWrapper.react";
 import HeadlineFeed from "../components/HeadlineFeed";
+import ErrorPageContent from "../components/Placeholder/ErrorPageContent";
 
 export default class HeadlinesFeedsPage extends React.Component {
   constructor(props) {
@@ -27,8 +28,9 @@ export default class HeadlinesFeedsPage extends React.Component {
   loadMoreData = () => {
     const { dispatch } = this.props;
     let page = 1;
-    if (this.props && this.props.page) {
-      page = this.props.page;
+    const headlinesReducer = this.props.headlines;
+    if (headlinesReducer && headlinesReducer.page) {
+      page = headlinesReducer.page;
     }
 
     if (page < 1) {
@@ -38,8 +40,12 @@ export default class HeadlinesFeedsPage extends React.Component {
   }
 
   render() {
-    const newsList = [...this.props.list];
-    console.log(newsList);
+    const headlinesReducer = this.props.headlines;
+    const authReducer = this.props.auth;
+    const newsList = [...headlinesReducer.list];
+    console.log("is Fetching = " + headlinesReducer.isFetching);
+    console.log("statusCode = " + headlinesReducer.statusCode);
+    console.log("message = " + headlinesReducer.message);
 
     const feeds = [];
     if (newsList.length === 0) {
@@ -53,40 +59,41 @@ export default class HeadlinesFeedsPage extends React.Component {
         }
         const headline = items.shift();
         feeds.push(
-          <Grid.Col width={12}>
-            <Card>
-              <HeadlineFeed
-                title={headline.title}
-                sourceUrl={headline.source.url}
-                description={headline.summary}
-                imageUrl={headline.thumbnail}
-                date={momentFromNow(headline.publicationDate)}
-                sourceBaseUrl={headline.source.baseUrl}
-                sourceName={headline.source.displayName}
-                sourceImageUrl={findSourceLogo(headline.source.name)}
-                subs={items && items.length > 0 &&
-                  <React.Fragment>{
-                    items.map(item => (
-                      <HeadlineFeed.Sub
-                        title={item.title}
-                        sourceUrl={item.source.url}
-                        sourceName={item.source.displayName}
-                        sourceBaseUrl={item.source.baseUrl}
-                        sourceImageUrl={findSourceLogo(item.source.name)}
-                        date={momentFromNow(item.publicationDate)}
-                      />))
-                  }
-                  </React.Fragment>
-                } />
+          <Grid.Col key={headline.source.url + headline.title} width={12}>
 
-            </Card>
+            <HeadlineFeed
+              title={headline.title}
+              sourceUrl={headline.source.url}
+              description={headline.summary}
+              imageUrl={headline.thumbnail}
+              date={momentFromNow(headline.publicationDate)}
+              sourceBaseUrl={headline.source.baseUrl}
+              sourceName={headline.source.displayName}
+              sourceImageUrl={findSourceLogo(headline.source.name)}
+              subs={items && items.length > 0 &&
+                <React.Fragment>{
+                  items.map((item, index) => (
+                    <HeadlineFeed.Sub
+                      key={item.source.url + item.title}
+                      title={item.title}
+                      sourceUrl={item.source.url}
+                      sourceName={item.source.displayName}
+                      sourceBaseUrl={item.source.baseUrl}
+                      sourceImageUrl={findSourceLogo(item.source.name)}
+                      date={momentFromNow(item.publicationDate)}
+                    />))
+                }
+                </React.Fragment>
+              } />
+
+
           </Grid.Col>
         )
       }
     }
 
     let endOfPage;
-    if (!this.props.hasMore && newsList.length !== 0) {
+    if (!headlinesReducer.hasMore && newsList.length !== 0) {
       endOfPage =
         <div class="col-12 d-flex justify-content-center">
           <div class="text-muted bold" style={{
@@ -108,10 +115,10 @@ export default class HeadlinesFeedsPage extends React.Component {
           }}
           dataLength={newsList.length}
           next={this.loadMoreData}
-          hasMore={this.props.hasMore}
+          hasMore={headlinesReducer.hasMore}
           loader={
-            <div class="col-12 d-flex justify-content-center">
-              <div class="loader card" style={{
+            <div className="col-12 d-flex justify-content-center">
+              <div className="loader card" style={{
                 backgroundColor: "transparent",
                 backgroundClip: "unset",
                 border: "0",
@@ -128,13 +135,24 @@ export default class HeadlinesFeedsPage extends React.Component {
         </InfiniteScroll>
       </Page.Content >
     } else {
-      body = <Page.Content></Page.Content>
+      let emptyBody = (headlinesReducer && headlinesReducer.isFetching) ? (<div className="p-empty-body col-12 d-flex justify-content-center">
+        <div className="loader card" style={{
+          backgroundColor: "transparent",
+          backgroundClip: "unset",
+          border: "0",
+          borderRadius: "0",
+          boxShadow: "none"
+        }} />
+      </div>) : <ErrorPageContent onButtonClick={this.loadMoreData}/>;
+      body = <Page.Content>
+        {emptyBody}
+      </Page.Content>
     }
 
-    let user = this.props.authData ? this.props.authData.user : undefined;
+    let user = authReducer && authReducer.authData && authReducer.authData.user ? authReducer.authData.user : undefined;
     return (
-      <SiteWrapper showFooter={newsList.length !== 0} currentUser={user} dispatch={this.props.dispatch}>
-        {body}
+      <SiteWrapper {...this.props.dispatch} showFooter={ !(newsList.length == 0 && headlinesReducer.isFetching) } currentUser={user}>
+          {body}
       </SiteWrapper>
     )
   }

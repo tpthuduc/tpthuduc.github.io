@@ -5,6 +5,7 @@ import * as React from "react";
 import "bootstrap";
 import "tabler-react/dist/Tabler.css";
 import "./App.css";
+import "./Placeholder.css";
 import thunk from 'redux-thunk';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware,compose } from 'redux';

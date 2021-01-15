@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import cn from "classnames";
-import {  Media, List } from "tabler-react";
+import {  Media, List, Card } from "tabler-react";
 import SubHeadlineFeed from "./SubHeadlineFeed";
 
 type Props = {|
@@ -32,10 +32,10 @@ function HeadlineFeed({
     sourceBaseUrl,
     subs,
 }: Props): React.Node {
-    const classes = cn("py-5 no-outline", className);
+    const classes = cn("p-5 no-outline", className);
     return (
-        <List.GroupItem className={classes}>
-            <Media>
+        <Card>
+            <Media className={classes}>
                 <img src={imageUrl} href={sourceUrl} className="img-headline img-center-crop " target="_blank" rel="noopener noreferrer" />
                 <Media.Body>
                     <Media.Heading>
@@ -50,14 +50,14 @@ function HeadlineFeed({
                         </div>
 
                         <a href={sourceUrl} className="text-default text-bl" target="_blank" rel="noopener noreferrer">
-                            <h4 class="headline">{title}</h4>
+                            <h4 className="headline">{title}</h4>
                         </a>
                     </Media.Heading>
                     <div className="text-description-headline">{description}</div>
                     {subs && <Media.List>{subs}</Media.List>}
                 </Media.Body>
             </Media>
-        </List.GroupItem>
+            </Card>
     );
 }
 

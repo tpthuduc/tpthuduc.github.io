@@ -1,0 +1,83 @@
+/* Empty response body */
+.erb, :before, :after {
+    box-sizing: border-box;
+  }
+  
+  div.erb {
+    display: flex;
+    align-items: center;
+    min-width: 275px;
+    height: 65vh;
+    margin: 0 10vw;
+    overflow: hidden;
+    color: #138FF2;
+    font-family: Roboto;
+  }
+  
+  .erb .wrapper {
+    flex-grow: 2;
+    width: 40vw;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .erb h1 {
+    margin: 0;
+    font-size: 4.5em;
+    font-weight: 100;
+  }
+  
+  .erb p {
+    width: 95%;
+    font-size: 1.25em;
+    line-height: 1.4;
+  }
+  
+  .erb .buttons {
+    white-space: nowrap;
+    display: inline-block;
+  }
+  
+  .erb span{
+    display: block;
+    text-transform: uppercase;
+    color: #B9DDFB;
+    letter-spacing: 1.5px;
+    text-align: center;
+  }
+  .erb a {
+    display: inline-block;
+    padding: .8em 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    border: 3px solid #B9DDFB;
+    color: #138FF2;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: .2em;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+  }
+  
+  .erb a:hover{
+      color: #E3F2FD;
+    }
+    .erb a:hover:before {
+      top: 0;
+    }
+
+    .erb a:before {
+      content: '';
+      background: #138FF2;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: -100%;
+      left: 0;
+      transition: .3s;
+      z-index: -1;
+    }
+
+  

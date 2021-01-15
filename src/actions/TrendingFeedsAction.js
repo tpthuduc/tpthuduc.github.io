@@ -1,9 +1,8 @@
-import { dispatch} from "react-redux";
+import { dispatch } from "react-redux";
 
 import * as types from '../constants/ActionTypes';
 
-import { loadApi, loadDefaultApi } from "../util/ApiUtil";
-
+import { apiGet } from "../util/ApiUtil";
 
 export const REQUEST_NEWS_RELOAD = "REQUEST_NEWS_RELOAD_TRENDING";
 export const RECEIVE_NEWS_RELOAD = "RECEIVE_NEWS_RELOAD_TRENDING";
@@ -24,18 +23,22 @@ function requestNewsListLoadMore() {
     }
 }
 
-function receiveNewsListReload(list = []) {
+function receiveNewsListReload(list = [], statusCode, message) {
     return {
         type: RECEIVE_NEWS_RELOAD,
-        list
+        list,
+        statusCode,
+        message
     }
 }
 
-function receiveNewsListLoadMore(list = [], page = 1) {
+function receiveNewsListLoadMore(page = 1, list = [], statusCode, message) {
     return {
         type: RECEIVE_NEWS_LOAD_MORE,
+        page,
         list,
-        page
+        statusCode,
+        message
     }
 }
 
@@ -47,15 +50,27 @@ export function loadNewsDetail(id) {
 }
 
 export function fetchNewsList(page) {
-    if (!page|| page === 0) {
+    if (!page || page === 0) {
+        // this is reload
         return dispatch => {
+            // mark as refreshing
             dispatch(requestNewsListReload())
-            return loadDefaultApi("/news").then(req => dispatch(receiveNewsListReload(req)));
+            return apiGet("/news")
+                .then(result => {
+                    if (result.isSuccess) {
+
+                        dispatch(receiveNewsListReload(result.data, result.statusCode, result.message))
+                    } else {
+                        // try 1 more time
+                        apiGet.get("/news").then(result2 => dispatch(receiveNewsListReload(result.data, result.statusCode, result.message)));
+                    }
+                });
         }
     } else {
+        // this is load more
         return dispatch => {
             dispatch(requestNewsListLoadMore())
-            return loadDefaultApi("/news?page="+(page+1)).then(req => dispatch(receiveNewsListLoadMore(req, page+1)));
+            return apiGet("/news?page=" + (page + 1)).then(req => dispatch(receiveNewsListLoadMore(req, page + 1)));
         }
     }
 }

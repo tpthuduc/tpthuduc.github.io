@@ -12,6 +12,8 @@ import {
 } from "tabler-react";
 
 import SiteWrapper from "../components/SiteWrapper.react";
+import ErrorPageContent from "../components/Placeholder/ErrorPageContent";
+
 
 export default class TrendingFeedsPage extends React.Component {
   componentDidMount() {
@@ -22,8 +24,10 @@ export default class TrendingFeedsPage extends React.Component {
   loadMoreData = () => {
     const dispatch = this.props.dispatch;
     let page = 1;
-    if (this.props && this.props.page) {
-      page = this.props.page;
+    const trendingFeedsReducer = this.props.trendingFeedsReducer;
+
+    if (trendingFeedsReducer && trendingFeedsReducer.page) {
+      page = trendingFeedsReducer.page;
     }
 
     if (page < 1) {
@@ -33,8 +37,8 @@ export default class TrendingFeedsPage extends React.Component {
   }
 
   render() {
-    const newsList = [...this.props.list];
-    console.log(newsList);
+    const trendingFeedsReducer = this.props.trendingFeedsReducer;
+    const newsList = [...(trendingFeedsReducer.list || [])];
 
     const mainNews = [];
     const moreNews = [];
@@ -85,36 +89,36 @@ export default class TrendingFeedsPage extends React.Component {
       mainNews.push(
         /* two items on the right */
         <Grid.Col width={12} lg={3} md={12}>
-        <Grid.Row>
-          <Grid.Col width={12} lg={12} md={6}>
-          <BlogCard
-            imgSrc={newsList[1].thumbnail}
-            title={newsList[1].title}
-            //description={newsList[1].summary}
-            postHref={newsList[1].source.url}
-            profileHref={newsList[1].source.baseUrl}
-            authorName={newsList[1].source.displayName}
-            avatarImgSrc={findSourceLogo(newsList[1].source.name)}
-            date={momentFromNow(newsList[1].publicationDate)}
-            iconName={"arrow-right"}
-          />
-          </Grid.Col>
-          <Grid.Col width={12} lg={12} md={6}>
-          <BlogCard
-            imgSrc={newsList[2].thumbnail}
-            title={newsList[2].title}
-            //description={newsList[1].summary}
-            postHref={newsList[2].source.url}
-            profileHref={newsList[2].source.baseUrl}
-            authorName={newsList[2].source.displayName}
-            avatarImgSrc={findSourceLogo(newsList[2].source.name)}
-            date={momentFromNow(newsList[2].publicationDate)}
-            iconName={"arrow-right"}
-          />
-          </Grid.Col>
-        </Grid.Row>
+          <Grid.Row>
+            <Grid.Col width={12} lg={12} md={6}>
+              <BlogCard
+                imgSrc={newsList[1].thumbnail}
+                title={newsList[1].title}
+                //description={newsList[1].summary}
+                postHref={newsList[1].source.url}
+                profileHref={newsList[1].source.baseUrl}
+                authorName={newsList[1].source.displayName}
+                avatarImgSrc={findSourceLogo(newsList[1].source.name)}
+                date={momentFromNow(newsList[1].publicationDate)}
+                iconName={"arrow-right"}
+              />
+            </Grid.Col>
+            <Grid.Col width={12} lg={12} md={6}>
+              <BlogCard
+                imgSrc={newsList[2].thumbnail}
+                title={newsList[2].title}
+                //description={newsList[1].summary}
+                postHref={newsList[2].source.url}
+                profileHref={newsList[2].source.baseUrl}
+                authorName={newsList[2].source.displayName}
+                avatarImgSrc={findSourceLogo(newsList[2].source.name)}
+                date={momentFromNow(newsList[2].publicationDate)}
+                iconName={"arrow-right"}
+              />
+            </Grid.Col>
+          </Grid.Row>
         </Grid.Col>
-        );
+      );
 
       for (let i = 3; i < 7; i++) {
         let item = newsList[i];
@@ -159,7 +163,7 @@ export default class TrendingFeedsPage extends React.Component {
     }
 
     let endOfPage;
-    if (!this.props.hasMore && newsList.length !== 0) endOfPage =
+    if (!trendingFeedsReducer.hasMore && newsList.length !== 0) endOfPage =
       <div class="col-12 d-flex justify-content-center">
         <div class="text-muted bold" style={{
           backgroundColor: "transparent",
@@ -181,7 +185,7 @@ export default class TrendingFeedsPage extends React.Component {
           <InfiniteScroll
             dataLength={newsList.length}
             next={this.loadMoreData}
-            hasMore={this.props.hasMore}
+            hasMore={trendingFeedsReducer.hasMore}
             loader={
               <div class="col-12 d-flex justify-content-center">
                 <div class="loader card" style={{
@@ -198,12 +202,23 @@ export default class TrendingFeedsPage extends React.Component {
         </Grid.Row >
       </Page.Content >
     } else {
-      body = <Page.Content></Page.Content>
+      let emptyBody = (trendingFeedsReducer && trendingFeedsReducer.isFetching) ? (<div className="p-empty-body col-12 d-flex justify-content-center">
+        <div className="loader card" style={{
+          backgroundColor: "transparent",
+          backgroundClip: "unset",
+          border: "0",
+          borderRadius: "0",
+          boxShadow: "none"
+        }} />
+      </div>) : <ErrorPageContent onButtonClick={this.loadMoreData} />;
+      body = <Page.Content>
+        {emptyBody}
+      </Page.Content>
     }
 
-    let user = this.props.authData ? this.props.authData.user : undefined;
+    let user = this.props.authReducer && this.props.authReducer.authData && this.authReducer.authData.user ? this.authReducer.authData.user : undefined;
     return (
-      <SiteWrapper showFooter={newsList.length !== 0} currentUser={user} dispatch={this.props.dispatch}>
+      <SiteWrapper {...this.props.dispatch} showFooter={!(newsList.length == 0 && trendingFeedsReducer.isFetching)} currentUser={user}>
         {body}
       </SiteWrapper>
     )

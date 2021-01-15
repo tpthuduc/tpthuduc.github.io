@@ -8,12 +8,10 @@ import { fetchNewsList } from '../actions/TrendingFeedsAction';
 import TrendingFeedsPage from "../pages/TrendingFeedsPage";
 
 
-function mapStateToProps({trendingFeedsReducer, authReducers}) {
+function mapStateToProps({ trendingFeedsReducer, authReducers }) {
     return {
-        list: trendingFeedsReducer.list,
-        page: trendingFeedsReducer.page,
-        hasMore: trendingFeedsReducer.hasMore,
-        ...authReducers
+        trendingFeedsReducer,
+        authReducers
     }
 }
 
