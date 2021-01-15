@@ -7,7 +7,7 @@ import {
 
 import { LogoutUser } from "../actions/AuthAction";
 import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
-const navBarItems= [
+const navBarItems = [
   {
     value: "Trang chủ",
     to: "/",
@@ -52,36 +52,36 @@ class SiteWrapper extends React.Component {
 
   state = {
     notificationsObjects: [
-      {
-        unread: true,
-        avatarURL: "demo/faces/male/41.jpg",
-        message: (
-          <React.Fragment>
-            Hello1
-          </React.Fragment>
-        ),
-        time: "10 minutes ago",
-      },
-      {
-        unread: true,
-        avatarURL: "demo/faces/female/1.jpg",
-        message: (
-          <React.Fragment>
-            hello 2
-          </React.Fragment>
-        ),
-        time: "1 hour ago",
-      },
-      {
-        unread: false,
-        avatarURL: "demo/faces/female/18.jpg",
-        message: (
-          <React.Fragment>
-            hello3
-          </React.Fragment>
-        ),
-        time: "2 hours ago",
-      },
+      /*  {
+         unread: true,
+         avatarURL: "demo/faces/male/41.jpg",
+         message: (
+           <React.Fragment>
+             Hello1
+           </React.Fragment>
+         ),
+         time: "10 minutes ago",
+       },
+       {
+         unread: true,
+         avatarURL: "demo/faces/female/1.jpg",
+         message: (
+           <React.Fragment>
+             hello 2
+           </React.Fragment>
+         ),
+         time: "1 hour ago",
+       },
+       {
+         unread: false,
+         avatarURL: "demo/faces/female/18.jpg",
+         message: (
+           <React.Fragment>
+             hello3
+           </React.Fragment>
+         ),
+         time: "2 hours ago",
+       }, */
     ],
   };
 
@@ -101,12 +101,12 @@ class SiteWrapper extends React.Component {
           name: user.name,
           description: "Quận 9, Tp. Hcm",
           options: [
-            { icon: "user", value: "Profile" },
-            { icon: "settings", value: "Settings" },
-            { icon: "mail", value: "Inbox", badge: "6" },
-            { icon: "send", value: "dashboard",active: user.role===1, to:"/dashboard", LinkComponent: withRouter(NavLink) },
+            /*          { icon: "user", value: "Profile" },
+                     { icon: "settings", value: "Settings" },
+                     { icon: "mail", value: "Inbox", badge: "6" }, */
+            { icon: "send", value: "dashboard", active: user.role === 1, to: "/dashboard", LinkComponent: withRouter(NavLink), useExact: true },
             { isDivider: true },
-            { icon: "log-out", value: <span onClick={actionLogout}>logout</span>,to:"/", LinkComponent: withRouter(NavLink) },
+            { icon: "log-out", value: <span onClick={actionLogout}>logout</span>, to: "/", LinkComponent: withRouter(NavLink), useExact: true },
           ],
         };
       }
@@ -115,9 +115,9 @@ class SiteWrapper extends React.Component {
           avatarURL: "./images/default_avatar.jpg",
           name: "Đăng nhập",
           options: [
-            { icon: "user", value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
+            { icon: "user", value: "Đăng nhập", to: "#/login", LinkComponent: withRouter(NavLink), useExact: true },
             { isDivider: true },
-            { icon: "user-plus", value: "Register", to: "/register", LinkComponent: withRouter(NavLink) },
+            { icon: "user-plus", value: "Đăng ký", to: "#/register", LinkComponent: withRouter(NavLink), useExact: true },
           ]
         };
 
@@ -125,7 +125,7 @@ class SiteWrapper extends React.Component {
     }
 
     const notificationsObjects = this.state.notificationsObjects || [];
-    const unreadCount = this.state.notificationsObjects.reduce(
+    const unreadCount = notificationsObjects.reduce(
       (a, v) => a || v.unread,
       false
     );
@@ -176,28 +176,28 @@ class SiteWrapper extends React.Component {
           title: "Tin địa phương",
           description: "Quận 9",
 
-          notificationsTray: {
-            notificationsObjects,
-            markAllAsRead: () =>
-              this.setState(
-                () => ({
-                  notificationsObjects: this.state.notificationsObjects.map(
-                    v => ({ ...v, unread: false })
-                  ),
-                }),
-                () =>
-                  setTimeout(
-                    () =>
-                      this.setState({
-                        notificationsObjects: this.state.notificationsObjects.map(
-                          v => ({ ...v, unread: true })
-                        ),
-                      }),
-                    5000
-                  )
-              ),
-            unread: unreadCount,
-          },
+          /*    notificationsTray: {
+               notificationsObjects,
+               markAllAsRead: () =>
+                 this.setState(
+                   () => ({
+                     notificationsObjects: this.state.notificationsObjects.map(
+                       v => ({ ...v, unread: false })
+                     ),
+                   }),
+                   () =>
+                     setTimeout(
+                       () =>
+                         this.setState({
+                           notificationsObjects: this.state.notificationsObjects.map(
+                             v => ({ ...v, unread: true })
+                           ),
+                         }),
+                       5000
+                     )
+                 ),
+               unread: unreadCount,
+             }, */
           accountDropdown: accountDropdownPropsFunc(currentUser),
 
         }}
