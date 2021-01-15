@@ -9,7 +9,7 @@ import "./Placeholder.css";
 import thunk from 'redux-thunk';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware,compose } from 'redux';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter  as Router, Route, Switch } from "react-router-dom";
 
 import rootReducer from "./reducers/rootReducers";
 
