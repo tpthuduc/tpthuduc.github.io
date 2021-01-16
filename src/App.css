@@ -121,3 +121,8 @@ vertical-align:middle;
     font-size: 87.5%;
     color: #cd201f;
 }
+
+.p-empty-body {
+  padding-top: 14rem !important;
+  padding-bottom: 14rem !important;
+}

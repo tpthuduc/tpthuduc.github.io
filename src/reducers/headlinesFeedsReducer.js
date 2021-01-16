@@ -5,7 +5,9 @@ const initalState = {
     list: [],
     page: 1,
     isFetching: false,
-    hasMore: true
+    hasMore: true,
+    statusCode: 0,
+    message: ""
 }
 
 export default function headlinesFeedsReducer(state = initalState, action) {
@@ -18,7 +20,9 @@ export default function headlinesFeedsReducer(state = initalState, action) {
                     isFetching: false,
                     page: 1,
                     hasMore: action.list && action.list.length > 0,
-                    list: [...action.list]
+                    list: [...action.list],
+                    statusCode: action.statusCode,
+                    message: action.message
                 }
                 
             case RECEIVE_NEWS_LOAD_MORE:
@@ -31,7 +35,9 @@ export default function headlinesFeedsReducer(state = initalState, action) {
                     isFetching: false,
                     page: state.page + 1,
                     hasMore: action.list && action.list.length > 0,
-                    list: [...state.list, ...action.list]
+                    list: [...state.list, ...action.list],
+                    statusCode: action.statusCode,
+                    message: action.message
                 }
 
             case REQUEST_NEWS_LOAD_MORE:

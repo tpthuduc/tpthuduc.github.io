@@ -6,12 +6,10 @@ import { fetchNewsList } from '../actions/HeadlinesFeedsAction';
 import HeadlinesFeedsPage from "../pages/HeadlinesFeedsPage";
 
 
-function mapStateToProps({headlinesFeedsReducer, authReducers}) {
+function mapStateToProps({ headlinesFeedsReducer, authReducers }) {
     return {
-        list: headlinesFeedsReducer.list,
-        page: headlinesFeedsReducer.page,
-        hasMore: headlinesFeedsReducer.hasMore,
-        ...authReducers
+        headlines: headlinesFeedsReducer,
+        auth: authReducers
     }
 }
 
