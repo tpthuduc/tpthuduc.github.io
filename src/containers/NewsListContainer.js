@@ -6,7 +6,7 @@ import { fetchNewsList } from '../actions/NewsAction';
 import Home from "../components/v2/HomePage.react";
 
 
-function mapStateToProps({newsReducers,authReducers}) {
+function mapStateToProps({newsReducers, authReducers}) {
     return {
         list: newsReducers.list,
         page: newsReducers.page,
