@@ -1,4 +1,4 @@
-import { apiGet } from "../util/ApiUtil";
+import { baseGet } from "../util/ApiUtil";
 
 
 export const REQUEST_DATA_MAPS = "REQUEST_DATA_MAPS";
@@ -23,7 +23,7 @@ function receiveDataMaps(data = []) {
 export function getDataMaps() {
     return dispatch => {
         dispatch(requestDataMaps())
-        return apiGet("/api/statistics/map").then(req => dispatch(receiveDataMaps(req.data)));
+        return baseGet("/api/statistics/map").then(req => dispatch(receiveDataMaps(req.data)));
     }
 }
 

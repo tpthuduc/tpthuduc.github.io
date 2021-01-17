@@ -2,13 +2,15 @@ import { combineReducers } from 'redux';
 import trendingFeedsReducer from './trendingFeedsReducer';
 import headlinesFeedsReducer from './headlinesFeedsReducer';
 import mapsReducer from './mapsReducer';
-import authReducers from './authReducers';
+import authReducer from './authReducer';
+import siteWrapperReducer from './siteWrapperReducer';
 
 const rootReducer = combineReducers({
     trendingFeedsReducer,
     headlinesFeedsReducer,
     mapsReducer,
-    authReducers
+    authReducer,
+    siteWrapperReducer
 });
 
 export default rootReducer;

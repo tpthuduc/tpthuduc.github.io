@@ -1,5 +1,5 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { fetchNewsList } from '../actions/HeadlinesFeedsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../util/ImageUtil';
@@ -13,9 +13,9 @@ import {
 
 import SiteWrapper from "../components/SiteWrapper.react";
 import HeadlineFeed from "../components/HeadlineFeed";
-import ErrorPageContent from "../components/Placeholder/ErrorPageContent";
+import EmptyPageContent from "../components/Placeholder/ErrorPageContent";
 
-export default class HeadlinesFeedsPage extends React.Component {
+class HeadlinesFeedsPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -40,12 +40,11 @@ export default class HeadlinesFeedsPage extends React.Component {
   }
 
   render() {
-    const headlinesReducer = this.props.headlines;
-    const authReducer = this.props.auth;
-    const newsList = [...headlinesReducer.list];
-    console.log("is Fetching = " + headlinesReducer.isFetching);
-    console.log("statusCode = " + headlinesReducer.statusCode);
-    console.log("message = " + headlinesReducer.message);
+    const { headlinesFeedsReducer, authReducer } = this.props;
+    const newsList = [...headlinesFeedsReducer.list];
+    console.log("is Fetching = " + headlinesFeedsReducer.isFetching);
+    console.log("statusCode = " + headlinesFeedsReducer.statusCode);
+    console.log("message = " + headlinesFeedsReducer.message);
 
     const feeds = [];
     if (newsList.length === 0) {
@@ -93,7 +92,7 @@ export default class HeadlinesFeedsPage extends React.Component {
     }
 
     let endOfPage;
-    if (!headlinesReducer.hasMore && newsList.length !== 0) {
+    if (!headlinesFeedsReducer.hasMore && newsList.length !== 0) {
       endOfPage =
         <div class="col-12 d-flex justify-content-center">
           <div class="text-muted bold" style={{
@@ -115,7 +114,7 @@ export default class HeadlinesFeedsPage extends React.Component {
           }}
           dataLength={newsList.length}
           next={this.loadMoreData}
-          hasMore={headlinesReducer.hasMore}
+          hasMore={headlinesFeedsReducer.hasMore}
           loader={
             <div className="col-12 d-flex justify-content-center">
               <div className="loader card" style={{
@@ -135,7 +134,7 @@ export default class HeadlinesFeedsPage extends React.Component {
         </InfiniteScroll>
       </Page.Content >
     } else {
-      let emptyBody = (headlinesReducer && headlinesReducer.isFetching) ? (<div className="p-empty-body col-12 d-flex justify-content-center">
+      let emptyBody = (headlinesFeedsReducer && headlinesFeedsReducer.isFetching) ? (<div className="p-empty-body col-12 d-flex justify-content-center">
         <div className="loader card" style={{
           backgroundColor: "transparent",
           backgroundClip: "unset",
@@ -143,22 +142,25 @@ export default class HeadlinesFeedsPage extends React.Component {
           borderRadius: "0",
           boxShadow: "none"
         }} />
-      </div>) : <ErrorPageContent onButtonClick={this.loadMoreData}/>;
+      </div>) : <EmptyPageContent onButtonClick={this.loadMoreData} />;
       body = <Page.Content>
         {emptyBody}
       </Page.Content>
     }
 
     let user = authReducer && authReducer.authData && authReducer.authData.user ? authReducer.authData.user : undefined;
-    return (
-      <SiteWrapper {...this.props.dispatch} showFooter={ !(newsList.length == 0 && headlinesReducer.isFetching) } currentUser={user}>
-          {body}
-      </SiteWrapper>
-    )
+    return body
+
   }
 }
 
-HeadlinesFeedsPage.propTypes = {
-  list: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
+function mapStateToProps({ headlinesFeedsReducer, authReducer }) {
+  return {
+    headlinesFeedsReducer,
+    authReducer
+  }
 }
+
+export const HeadlinesFeedsContainer = connect(
+  mapStateToProps
+)(HeadlinesFeedsPage);

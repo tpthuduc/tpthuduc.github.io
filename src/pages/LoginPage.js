@@ -1,24 +1,26 @@
 import * as React from "react";
-import {Redirect} from 'react-router-dom'
+import { connect } from "react-redux";
+
+import { Redirect } from 'react-router-dom'
 import { Formik } from "formik";
 import { postUserLogin } from '../actions/AuthAction';
 import LoginForm from '../components/Form/LoginForm';
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const {dispatch, isFetching, authData } = this.props;
-    const strings = isFetching ? {buttonText : "Please wait"}: {};
-    
-    if(authData) {
-      if(authData.success){
+    const { dispatch, isFetching, authData } = this.props;
+    const strings = isFetching ? { buttonText: "Please wait" } : {};
+
+    if (authData) {
+      if (authData.success) {
         return <Redirect to="/" />
       }
     }
-    const message= (authData && authData.success === false) ? (authData.message || "Something went wrong") : undefined
+    const message = (authData && authData.success === false) ? (authData.message || "Something went wrong") : undefined
 
     return (
       <Formik
@@ -36,14 +38,14 @@ export default class LoginPage extends React.Component {
           ) {
             errors.email = "Invalid email address";
           }
-    
+
           return errors;
         }}
         onSubmit={(
           values,
           { setSubmitting, setErrors /* setValues and other goodies */ }
         ) => {
-          if(!isFetching)
+          if (!isFetching)
             dispatch(postUserLogin(values))
           // alert("Done!");
         }}
@@ -58,20 +60,29 @@ export default class LoginPage extends React.Component {
           isSubmitting
         }) => (
 
-            <LoginForm
-              onSubmit={handleSubmit}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              values={values}
-              errors={errors}
-              touched={touched}
-              message={message}
-              >
-              </LoginForm>
-          
-          )}
+          <LoginForm
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            values={values}
+            errors={errors}
+            touched={touched}
+            message={message}
+          >
+          </LoginForm>
+
+        )}
 
       />
     );
   }
 }
+
+
+function mapStateToProps({ authReducer }) {
+  return { authReducer };
+}
+
+export const LoginContainer = connect(
+  mapStateToProps
+)(LoginPage)

@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
+
 import { Marker, GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
 import usePlacesAutocomplete from "use-places-autocomplete";
 import Location from '../constants/Location'
@@ -24,7 +25,7 @@ const options = {
   styles: MapStyle,
   disableDefaultUI: true
 }
-export default function MapExample(props) {
+function MapPage(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_KEY,
     libraries,
@@ -36,7 +37,7 @@ export default function MapExample(props) {
     // equal componentDidMount()
     dispatch(getDataMaps());
 
-  },[]);
+  }, []);
 
   const mapsReducer = props.mapsReducer;
   const markers = mapsReducer ? mapsReducer.data : [];
@@ -63,10 +64,10 @@ export default function MapExample(props) {
         center={center}
         options={options}
         onClick={onMapClick}
-        onLoad={onMapLoad} 
+        onLoad={onMapLoad}
       >
         {markers.map(marker => <Marker
-          key={marker.time.toISOString()}
+          key={marker && marker.time ? marker.time.toISOString() : ""}
           position={{ lat: marker.lat, lng: marker.lng }}
           icon={GetIcon(marker)}
           onClick={() => setSelected(marker)}
@@ -112,3 +113,13 @@ function GetIcon(marker) {
   }
   return result
 }
+
+function mapStateToProps({ mapsReducer }) {
+  return { mapsReducer };
+}
+
+const MapsContainer = connect(
+  mapStateToProps
+)(MapPage)
+
+export default MapsContainer;

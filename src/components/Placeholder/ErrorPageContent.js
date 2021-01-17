@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-class ErrorPageContent extends React.Component {
+class EmptyPageContent extends React.Component {
     render() {
         return (<div className="erb text-blue">
             <div className="wrapper">
@@ -14,4 +14,4 @@ class ErrorPageContent extends React.Component {
     }
 }
 
-export default ErrorPageContent;
+export default EmptyPageContent;

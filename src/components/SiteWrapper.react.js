@@ -17,10 +17,19 @@ const navBarItems = [
   },
   {
     value: "Xu hướng",
-    icon: "globe",
+    icon: "trending-up",
     to: "/trendings",
     LinkComponent: withRouter(NavLink),
     useExact: true,
+  },
+  {
+    value: "Bản đồ tin tức",
+    icon: "map-pin",
+    to: "/maps",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  }
+
     /* subItems: [
       {
         value: "Cards Design",
@@ -34,7 +43,7 @@ const navBarItems = [
         LinkComponent: withRouter(NavLink),
       },
     ], */
-  }/* ,
+  /* ,
   {
     value: "Coronavirus",
     icon: "shield",

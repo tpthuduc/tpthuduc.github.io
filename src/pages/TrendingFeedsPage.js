@@ -1,5 +1,6 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import { fetchNewsList } from '../actions/TrendingFeedsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../util/ImageUtil';
@@ -11,11 +12,9 @@ import {
   BlogCard,
 } from "tabler-react";
 
-import SiteWrapper from "../components/SiteWrapper.react";
-import ErrorPageContent from "../components/Placeholder/ErrorPageContent";
+import EmptyPageContent from "../components/Placeholder/ErrorPageContent";
 
-
-export default class TrendingFeedsPage extends React.Component {
+class TrendingFeedsPage extends React.Component {
   componentDidMount() {
     const dispatch = this.props.dispatch;
     dispatch(fetchNewsList());
@@ -37,7 +36,7 @@ export default class TrendingFeedsPage extends React.Component {
   }
 
   render() {
-    const trendingFeedsReducer = this.props.trendingFeedsReducer;
+    const { trendingFeedsReducer } = this.props;
     const newsList = [...(trendingFeedsReducer.list || [])];
 
     const mainNews = [];
@@ -165,16 +164,16 @@ export default class TrendingFeedsPage extends React.Component {
     let endOfPage;
     if (!trendingFeedsReducer.hasMore && newsList.length !== 0) {
       endOfPage =
-      <div class="col-12 d-flex justify-content-center">
-        <div class="text-muted bold" style={{
-          backgroundColor: "transparent",
-          backgroundClip: "unset",
-          border: "0",
-          borderRadius: "0",
-          boxShadow: "none"
-        }}>Oop! Hết tin rồi, quay lại sau nhé!</div>
-      </div>
-  }
+        <div class="col-12 d-flex justify-content-center">
+          <div class="text-muted bold" style={{
+            backgroundColor: "transparent",
+            backgroundClip: "unset",
+            border: "0",
+            borderRadius: "0",
+            boxShadow: "none"
+          }}>Oop! Hết tin rồi, quay lại sau nhé!</div>
+        </div>
+    }
     let body;
     if (newsList.length !== 0) {
       body = <Page.Content title="Xu huớng">
@@ -211,22 +210,26 @@ export default class TrendingFeedsPage extends React.Component {
           borderRadius: "0",
           boxShadow: "none"
         }} />
-      </div>) : <ErrorPageContent onButtonClick={this.loadMoreData} />;
+      </div>) : <EmptyPageContent onButtonClick={this.loadMoreData} />;
       body = <Page.Content>
         {emptyBody}
       </Page.Content>
     }
 
-    let user = this.props.authReducer && this.props.authReducer.authData && this.authReducer.authData.user ? this.authReducer.authData.user : undefined;
-    return (
-      <SiteWrapper {...this.props.dispatch} showFooter={!(newsList.length == 0 && trendingFeedsReducer.isFetching)} currentUser={user}>
-        {body}
-      </SiteWrapper>
-    )
+    return body
+
   }
 }
 
-TrendingFeedsPage.propTypes = {
-  list: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
+
+function mapStateToProps({ trendingFeedsReducer, authReducer }) {
+  return {
+    trendingFeedsReducer,
+    authReducer
+  }
 }
+
+
+export const TrendingFeedsContainer = connect(
+  mapStateToProps
+)(TrendingFeedsPage);

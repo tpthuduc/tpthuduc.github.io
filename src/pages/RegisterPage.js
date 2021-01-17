@@ -1,15 +1,16 @@
 import * as React from "react";
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
+
 import { Formik } from "formik";
 import RegisterForm from "../components/Form/RegisterForm";
 import { postUserRegister } from '../actions/AuthAction';
-
-export default class RegisterPage extends React.Component {
+class RegisterPage extends React.Component {
   render() {
-    const {dispatch, isFetching, authData } = this.props;
-    const strings = isFetching ? {buttonText : "Please wait"}: {};
-    
-    if(authData && authData.user && authData.user.email) {
+    const { dispatch, isFetching, authData } = this.props;
+    const strings = isFetching ? { buttonText: "Please wait" } : {};
+
+    if (authData && authData.user && authData.user.email) {
       return <Redirect to="/" />
     }
 
@@ -38,8 +39,8 @@ export default class RegisterPage extends React.Component {
           values,
           { setSubmitting, setErrors /* setValues and other goodies */ }
         ) => {
-          if(!isFetching)
-         dispatch(postUserRegister(values))
+          if (!isFetching)
+            dispatch(postUserRegister(values))
           // alert("Done!");
         }}
         render={({
@@ -52,16 +53,25 @@ export default class RegisterPage extends React.Component {
           strings,
           isSubmitting,
         }) => (
-            <RegisterForm
-              onSubmit={handleSubmit}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              values={values}
-              errors={errors}
-              touched={touched}
-            />
-          )}
+          <RegisterForm
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            values={values}
+            errors={errors}
+            touched={touched}
+          />
+        )}
       />
     );
   }
 }
+
+
+function mapStateToProps({ authReducers }) {
+  return authReducers;
+}
+
+export const RegisterContainer = connect(
+  mapStateToProps
+)(RegisterPage)

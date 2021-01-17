@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { REQUEST_LOGOUT } from '../actions/AuthAction';
-const baseUrl = process.env.REACT_APP_API_URL;
 
-export async function apiGet(endPoint) {
-    const url = baseUrl + endPoint;
+const baseUrl = process.env.REACT_APP_BASE_URL; //  https://abc.xyz/
+const apiUrl = process.env.REACT_APP_API_URL; // https://abc.xyz/api/v2/
+
+export async function get(url) {
     const result = {};
 
     try {
@@ -17,4 +17,22 @@ export async function apiGet(endPoint) {
         result.isSuccess = false;
     };
     return result;
+}
+
+/**
+ * Get data, add default base url
+ * @param {} endPoint 
+ */
+export async function baseGet(endPoint) {
+    const url = baseUrl + endPoint;
+    return await get(url);
+}
+
+/**
+ * get data, added default api url
+ * @param {*} endPoint 
+ */
+export async function apiGet(endPoint) {
+    const url = apiUrl + endPoint;
+    return await get(url);
 }

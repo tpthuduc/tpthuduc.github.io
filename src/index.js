@@ -5,11 +5,11 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Route, Router, Switch } from 'react-router-dom';
 
-import AppV2 from "./App.v2.react";
+import App from "./App.react";
 const rootElement = document.getElementById("root");
 
 if(rootElement) {
-  ReactDOM.render(<AppV2/>, rootElement);
+  ReactDOM.render(<App/>, rootElement);
 } else {
   throw new Error("Could not find root element to mount to!");
 }
