@@ -19,6 +19,8 @@ import ViewDetailRedirect from "./components/ViewDetailRedirect";
 import NotFound from './pages/NotFound'
 import DashboardPage from "./pages/DashboardPage";
 import GoogleMap from "./pages/Map";
+import MapExample from "./pages/MapExample";
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)));
@@ -36,6 +38,7 @@ function App(props) {
             <Route exact path='/login' component={LoginContainer} />
             <Route exact path='/register' component={RegisterContainer} />
             <Route exact path='/map' component={GoogleMap} />
+            <Route exact path='/maps' component={MapExample} />
             <Route exact path={["/management/dashboard",'/management']} component={DashboardPage}>
             </Route>
             <Route exact path="/detail/:id" component={ViewDetailRedirect} />
