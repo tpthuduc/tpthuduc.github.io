@@ -12,7 +12,6 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import rootReducer from "./reducers/rootReducers";
 
 import ViewDetailRedirect from "./components/ViewDetailRedirect";
-import NotFound from './pages/NotFound'
 import { HeaderFooterWrapperContainer } from "pages/HeaderFooterWrapperPage";
 import { LoginContainer } from "pages/LoginPage";
 import { RegisterContainer } from "pages/RegisterPage";
@@ -33,7 +32,6 @@ function App(props) {
             <Route exact path="/detail/:id" component={ViewDetailRedirect} />
             <Route path='/' component={HeaderFooterWrapperContainer} />
 
-            <Route component={NotFound} />
           </Switch>
 
         </Router>

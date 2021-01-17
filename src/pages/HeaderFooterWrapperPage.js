@@ -5,6 +5,8 @@ import { TrendingFeedsContainer } from "./TrendingFeedsPage";
 import { HeadlinesFeedsContainer } from "./HeadlinesFeedsPage";
 import { OverviewContainer } from "./management/OverviewPage";
 import MapsContainer from "./MapPage";
+import NotFound from './NotFound'
+
 
 const { Route } = require("react-router-dom");
 
@@ -31,6 +33,8 @@ class HeaderFooterWrapperPage extends React.PureComponent {
 
                 {/* Headlines page */}
                 <Route exact path={[`${match.url}/`, `${match.url}/headlines`]} component={HeadlinesFeedsContainer} />
+
+                <Route component={NotFound} />
 
             </SiteWrapper>
         )
