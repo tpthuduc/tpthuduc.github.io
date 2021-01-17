@@ -19,7 +19,7 @@ import ViewDetailRedirect from "./components/ViewDetailRedirect";
 import NotFound from './pages/NotFound'
 import DashboardPage from "./pages/DashboardPage";
 import GoogleMap from "./pages/Map";
-import MapExample from "./pages/MapExample";
+import MapExample from "./containers/MapsContainers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

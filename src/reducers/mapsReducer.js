@@ -1,5 +1,5 @@
 import { SHOW_NEWS_DETAIL } from '../constants/ActionTypes';
-import { RECEIVE_DATA_MAPS, REQUEST_DATA_MAPS } from "actions/DataMapsAction";
+import { RECEIVE_DATA_MAPS, REQUEST_DATA_MAPS } from "../actions/MapsAction";
 
 const initalState = {
     data: [],
@@ -19,7 +19,7 @@ export default function DataMapsReducer(state = initalState, action) {
             }
 
         case REQUEST_DATA_MAPS:
-            return {...state, isLoading: false}
+            return { ...state, isLoading: false }
 
         default:
             return state;

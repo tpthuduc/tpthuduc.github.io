@@ -1,8 +1,9 @@
-import { loadApi, loadDefaultApi } from "../util/ApiUtil";
+import { apiGet } from "../util/ApiUtil";
 
 
 export const REQUEST_DATA_MAPS = "REQUEST_DATA_MAPS";
 export const RECEIVE_DATA_MAPS = "RECEIVE_DATA_MAPS";
+export const SET_DATA_MARKERS = "SET_DATA_MARKERS";
 
 function requestDataMaps() {
     return {
@@ -22,7 +23,14 @@ function receiveDataMaps(data = []) {
 export function getDataMaps() {
     return dispatch => {
         dispatch(requestDataMaps())
-        return loadDefaultApi("/api/statistics/map").then(req => dispatch(receiveDataMaps(req)));
+        return apiGet("/api/statistics/map").then(req => dispatch(receiveDataMaps(req.data)));
+    }
+}
+
+export function setMarkers(markers) {
+    return dispatch => {
+        dispatch(requestDataMaps());
+        return dispatch(receiveDataMaps(markers));
     }
 }
 

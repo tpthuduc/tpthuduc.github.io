@@ -1,8 +1,10 @@
-import react, { useCallback, useState, useRef } from 'react'
-import { Marker, GoogleMap, useLoadScript,InfoWindow } from '@react-google-maps/api'
+import React, { useCallback, useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Marker, GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
+import usePlacesAutocomplete from "use-places-autocomplete";
 import Location from '../constants/Location'
 import MapStyle from '../constants/Map_style'
-import { getDataMaps } from 'actions/MapsAction'
+import { getDataMaps, setMarkers } from 'actions/MapsAction'
 
 const libraries = ['places']
 const mapContainerStyle = {
@@ -22,44 +24,46 @@ const options = {
   styles: MapStyle,
   disableDefaultUI: true
 }
-export default function MapExample() {
+export default function MapExample(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_KEY,
     libraries,
   })
-  const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
-  const dispatch = useDispatch()
+  const dispatch = props.dispatch;
 
-  dispatch(getDataMaps());
-  const data = useSelector((state) => state.data)
+  useEffect(() => {
+    // equal componentDidMount()
+    dispatch(getDataMaps());
 
-  setMarkers(curremts=>data);
+  },[]);
+
+  const mapsReducer = props.mapsReducer;
+  const markers = mapsReducer ? mapsReducer.data : [];
 
   const onMapClick = useCallback(e => {
-    setMarkers(current => [...current, { lat: e.latLng.lat(), lng: e.latLng.lng(), time: new Date() }])
+    dispatch(setMarkers([...markers, { lat: e.latLng.lat(), lng: e.latLng.lng(), time: new Date() }]))
   }, [])
 
   const mapRef = useRef();
-  const onMapLoad = useCallback(map=>mapRef.current=map,[])
-
+  const onMapLoad = useCallback(map => mapRef.current = map, [])
 
 
   if (loadError) return "error loading map"
   if (!isLoaded) return "loading map"
   return (
-    <>
+    <React.Fragment>
       <div style={titleStyle}>
         <h1>Quận 9</h1>
       </div>
-      <SearchPlace/>
+      <SearchPlace />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
         center={center}
         options={options}
-        // onClick={onMapClick}
-        onLoad={onMapLoad}
+        onClick={onMapClick}
+        onLoad={onMapLoad} 
       >
         {markers.map(marker => <Marker
           key={marker.time.toISOString()}
@@ -67,7 +71,7 @@ export default function MapExample() {
           icon={GetIcon(marker)}
           onClick={() => setSelected(marker)}
         />)}
-        {selected ? (<InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={()=>setSelected(null)}>
+        {selected ? (<InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={() => setSelected(null)}>
           <div>
             <h4>{selected.data.name}</h4>
 
@@ -77,34 +81,34 @@ export default function MapExample() {
           </div>
         </InfoWindow>) : null}
       </GoogleMap>
-    </>)
+    </React.Fragment>)
 }
 
-function SearchPlace(){
-  const {ready,value, suggestions:{status,data},setValue, clearSuggesetions} = usePlacesAutocomplete({
-    requestOptions:{
-      location: {lat:()=>Location[0],lng:()=>Location[1]},
-      radius: 200*1000
+function SearchPlace() {
+  const { ready, value, suggestions: { status, data }, setValue, clearSuggesetions } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => Location[0], lng: () => Location[1] },
+      radius: 200 * 1000
     }
   })
-  return <ComboboxInput></ComboboxInput>
+  return <div></div>// <ComboboxInput></ComboboxInput> ???
 }
-function GetIcon(marker){
-  var numOfArticles = marker.data.numOfArticles;
+function GetIcon(marker) {
+  var numOfArticles = marker && marker.data && marker.data.numOfArticles ? marker.data.numOfArticles : 0;
   var maxArticles = 10;
   const maxSize = 50;
   const minSize = 15;
 
-  const diameter = numOfArticles < maxArticle ?
-  (((numOfArticles/maxArticles)*(maxSize-minSize)) + minSize) :
-  maxSize
-  
+  const diameter = numOfArticles < maxArticles ?
+    (((numOfArticles / maxArticles) * (maxSize - minSize)) + minSize) :
+    maxSize
+
 
   const result = {
     url: '/circle.svg',
     scaledSize: new window.google.maps.Size(diameter, diameter),
     origin: new window.google.maps.Point(0, 0),
-    anchor: new window.google.maps.Point(diameter/2, diameter/2),
+    anchor: new window.google.maps.Point(diameter / 2, diameter / 2),
   }
-  return  result
+  return result
 }
