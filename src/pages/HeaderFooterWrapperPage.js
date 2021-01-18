@@ -8,7 +8,7 @@ import MapsContainer from "./MapPage";
 import NotFound from './NotFound'
 
 
-const { Route } = require("react-router-dom");
+const { Route, HashRouter, Switch } = require("react-router-dom");
 
 class HeaderFooterWrapperPage extends React.PureComponent {
     componentDidMount() {
@@ -22,19 +22,21 @@ class HeaderFooterWrapperPage extends React.PureComponent {
         let user = authReducer && authReducer.authData && authReducer.authData.user ? authReducer.authData.user : undefined;
         return (
             <SiteWrapper showFooter={siteWrapperReducer && siteWrapperReducer.showFooter} currentUser={user}>
+                <Switch>
 
-                {/* Trendings Page */}
-                <Route exact path='/trendings' component={TrendingFeedsContainer} />
+                    {/* Trendings Page */}
+                    <Route exact path='/trendings' component={TrendingFeedsContainer} />
 
-                {/* Management Page */}
-                <Route exact path='/management' component={OverviewContainer} />
+                    {/* Management Page */}
+                    <Route exact path='/management' component={OverviewContainer} />
 
-                <Route exact path='/maps' component={MapsContainer} />
+                    <Route exact path='/maps' component={MapsContainer} />
 
-                {/* Headlines page */}
-                <Route exact path={[`${match.url}/`, `${match.url}/headlines`]} component={HeadlinesFeedsContainer} />
+                    {/* Headlines page */}
+                    <Route exact path={[`${match.url}/`, `${match.url}/headlines`]} component={HeadlinesFeedsContainer} />
 
-                <Route component={NotFound} />
+                    <Route component={NotFound} />
+                </Switch>
 
             </SiteWrapper>
         )

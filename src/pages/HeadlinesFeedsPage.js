@@ -28,9 +28,9 @@ class HeadlinesFeedsPage extends React.Component {
   loadMoreData = () => {
     const { dispatch } = this.props;
     let page = 1;
-    const headlinesReducer = this.props.headlines;
-    if (headlinesReducer && headlinesReducer.page) {
-      page = headlinesReducer.page;
+    const { headlinesFeedsReducer } = this.props;
+    if (headlinesFeedsReducer && headlinesFeedsReducer.page) {
+      page = headlinesFeedsReducer.page;
     }
 
     if (page < 1) {
