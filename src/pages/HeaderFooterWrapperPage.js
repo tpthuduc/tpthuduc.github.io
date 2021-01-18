@@ -6,6 +6,7 @@ import { HeadlinesFeedsContainer } from "./HeadlinesFeedsPage";
 import { OverviewContainer } from "./management/OverviewPage";
 import MapsContainer from "./MapPage";
 import NotFound from './NotFound'
+import { DashboardContainer } from "./management/DashboardPage";
 
 
 const { Route, HashRouter, Switch } = require("react-router-dom");
@@ -28,7 +29,7 @@ class HeaderFooterWrapperPage extends React.PureComponent {
                     <Route exact path='/trendings' component={TrendingFeedsContainer} />
 
                     {/* Management Page */}
-                    <Route exact path='/management' component={OverviewContainer} />
+                    <Route exact path='/management' component={DashboardContainer} />
 
                     <Route exact path='/maps' component={MapsContainer} />
 

@@ -28,6 +28,13 @@ const navBarItems = [
     to: "/maps",
     LinkComponent: withRouter(NavLink),
     useExact: true,
+  },
+  {
+    value: "Quản trị (dành cho quản trị viên)",
+    icon: "grid",
+    to: "/management",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
   }
 
     /* subItems: [
