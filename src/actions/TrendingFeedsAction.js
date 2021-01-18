@@ -62,7 +62,7 @@ export function fetchNewsList(page) {
                         dispatch(receiveNewsListReload(result.data, result.statusCode, result.message))
                     } else {
                         // try 1 more time
-                        apiGet.get("/news").then(result2 => dispatch(receiveNewsListReload(result.data, result.statusCode, result.message)));
+                        apiGet("/news").then(result2 => dispatch(receiveNewsListReload(result.data, result.statusCode, result.message)));
                     }
                 });
         }

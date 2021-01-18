@@ -1,5 +1,5 @@
 import * as React from "react";
-import {DefaultErrorPage} from "tabler-react";
+import { DefaultErrorPage } from "tabler-react";
 
 function Error404Page({
     title = "404",

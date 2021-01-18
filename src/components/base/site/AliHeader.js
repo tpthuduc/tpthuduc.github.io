@@ -10,6 +10,7 @@ const AliHeader = ({
     alt,
     title,
     description,
+    isFetching,
     notificationsTray: notificationsTrayFromProps,
     accountDropdown: accountDropdownFromProps,
     navItems,
@@ -28,7 +29,7 @@ const AliHeader = ({
                 <div className="d-flex">
                     {children || (
                         <React.Fragment>
-                            <AliLogo href={href} alt={alt} src={imageURL} title={title} description={description} />
+                            <AliLogo href={href} alt={alt} src={imageURL} title={title} description={description} isFetching={isFetching} />
                             <div className="d-flex order-lg-2 ml-auto">
                                 {navItems}
                                 {notificationsTray}

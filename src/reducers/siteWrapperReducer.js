@@ -3,9 +3,10 @@ import { RECEIVE_BRAND_INFO, RECEIVE_SITE_VISIBILITY } from "actions/SiteWrapper
 const initalState = {
     showFooter: true,
     showHeader: true,
-    brandLogo: "",
+    brandLogo: null,
     brandName: "Tin địa phương",
     subBrandName: "Quận 9",
+    isFetching: false
 }
 
 export default function siteWrapperReducer(state = initalState, action) {

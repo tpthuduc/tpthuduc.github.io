@@ -126,3 +126,34 @@ vertical-align:middle;
   padding-top: 14rem !important;
   padding-bottom: 14rem !important;
 }
+
+.branding-color {
+  color :#467fcf !important
+}
+
+.layered {
+  display: grid;
+
+  /* Set horizontal alignment of items in, case they have a different width. */
+  /* justify-items: start | end | center | stretch (default); */
+  justify-items: start;
+
+  /* Set vertical alignment of items, in case they have a different height. */
+  /* align-items: start | end | center | stretch (default); */
+  align-items: center;
+}
+
+.layered > * {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.sub-branding {
+  height: 1em;
+}
+
+.sub-branding-loader {
+  padding-top: 4px;
+  padding-left: 4px;
+
+}

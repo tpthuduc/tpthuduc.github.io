@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 
 import {
@@ -32,24 +33,22 @@ const navBarItems = [
   {
     value: "Quản trị (dành cho quản trị viên)",
     icon: "grid",
-    to: "/management",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
+
+    subItems: [
+      {
+        value: "Tổng quan", to: "/management", LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Thống kê", to: "/management/analytics", LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Thiết lập", to: "/management/setting", LinkComponent: withRouter(NavLink)
+      },
+
+    ],
   }
 
-    /* subItems: [
-      {
-        value: "Cards Design",
-        to: "/cards",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "Charts", to: "/charts", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Pricing Cards",
-        to: "/pricing-cards",
-        LinkComponent: withRouter(NavLink),
-      },
-    ], */
+
   /* ,
   {
     value: "Coronavirus",
@@ -102,7 +101,7 @@ class SiteWrapper extends React.Component {
   };
 
   render() {
-    const { dispatch, currentUser } = this.props;
+    const { dispatch, currentUser, siteWrapperReducer } = this.props;
 
 
     const actionLogout = () => {
@@ -187,10 +186,10 @@ class SiteWrapper extends React.Component {
       <InnerSiteWrapper
         headerProps={{
           href: "/",
-          alt: "Tin dia phuong",
-          imageURL: "./images/local_news.svg",
-          title: "Tin địa phương",
-          description: "Quận 9",
+          alt: siteWrapperReducer && siteWrapperReducer.brandName ? siteWrapperReducer.brandName : "Tin dia phuong",
+          imageURL: siteWrapperReducer && siteWrapperReducer.brandLogo ? siteWrapperReducer.brandLogo : "./images/local_news.svg",
+          title: siteWrapperReducer && siteWrapperReducer.brandName ? siteWrapperReducer.brandName : "Tin địa phương",
+          description: siteWrapperReducer && siteWrapperReducer.subBrandName ? siteWrapperReducer.subBrandName : "Quận 9",
 
           /*    notificationsTray: {
                notificationsObjects,
@@ -226,4 +225,13 @@ class SiteWrapper extends React.Component {
   }
 }
 
-export default SiteWrapper;
+function mapStateToProps({ authReducer, siteWrapperReducer }) {
+  return {
+    authReducer,
+    siteWrapperReducer
+  }
+}
+
+export const SiteWrapperContainer = connect(
+  mapStateToProps
+)(SiteWrapper);
