@@ -36,7 +36,7 @@ function receiveSiteVisibility(showHeader = true, showFooter = true) {
 export function getBrandInfo() {
     return dispatch => {
         dispatch(requestBrandInfo())
-        return apiGet("/info/brand").then(req => dispatch(receiveBrandInfo(req.data)));
+        return apiGet("/info").then(req => dispatch(receiveBrandInfo(req.data)));
     }
 }
 

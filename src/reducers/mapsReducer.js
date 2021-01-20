@@ -1,4 +1,3 @@
-import { SHOW_NEWS_DETAIL } from '../constants/ActionTypes';
 import { RECEIVE_DATA_MAPS, REQUEST_DATA_MAPS } from "../actions/MapsAction";
 
 const initalState = {

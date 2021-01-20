@@ -13,7 +13,7 @@ import {
 
 import SiteWrapper from "../components/SiteWrapper.react";
 import HeadlineFeed from "../components/HeadlineFeed";
-import EmptyPageContent from "../components/Placeholder/ErrorPageContent";
+import EmptyPageContent from "../components/Placeholder/EmptyPageContent";
 
 class HeadlinesFeedsPage extends React.Component {
   constructor(props) {

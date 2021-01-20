@@ -12,7 +12,7 @@ import {
   BlogCard,
 } from "tabler-react";
 
-import EmptyPageContent from "../components/Placeholder/ErrorPageContent";
+import EmptyPageContent from "../components/Placeholder/EmptyPageContent";
 
 class TrendingFeedsPage extends React.Component {
   componentDidMount() {

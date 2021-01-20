@@ -186,10 +186,10 @@ class SiteWrapper extends React.Component {
       <InnerSiteWrapper
         headerProps={{
           href: "/",
-          alt: siteWrapperReducer && siteWrapperReducer.brandName ? siteWrapperReducer.brandName : "Tin dia phuong",
+          alt: siteWrapperReducer && siteWrapperReducer.branding ? siteWrapperReducer.branding : "Tin dia phuong",
           imageURL: siteWrapperReducer && siteWrapperReducer.brandLogo ? siteWrapperReducer.brandLogo : "./images/local_news.svg",
-          title: siteWrapperReducer && siteWrapperReducer.brandName ? siteWrapperReducer.brandName : "Tin địa phương",
-          description: siteWrapperReducer && siteWrapperReducer.subBrandName ? siteWrapperReducer.subBrandName : "Quận 9",
+          title: siteWrapperReducer && siteWrapperReducer.branding ? siteWrapperReducer.branding : "Tin địa phương",
+          description: siteWrapperReducer && siteWrapperReducer.subBranding ? siteWrapperReducer.subBranding : "Quận 9",
 
           /*    notificationsTray: {
                notificationsObjects,
