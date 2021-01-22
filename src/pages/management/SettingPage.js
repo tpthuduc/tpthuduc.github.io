@@ -131,7 +131,7 @@ class SettingPage extends React.PureComponent {
                     </Form.Group>
                 </Page.Card>
                 <Page.Card title="Nguồn tin tức">
-                    <Form.Group label="Các nguồn tin bị loại bỏ">
+                    <Form.Group label="Danh sách hạn chế">
                     <Form.SelectGroup pills canSelectMultiple className="py-4">
                             <Form.SelectGroupItem
                                 name="language"
