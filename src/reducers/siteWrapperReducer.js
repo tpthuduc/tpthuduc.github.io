@@ -4,9 +4,9 @@ const initalState = {
     showFooter: true,
     showHeader: true,
     brandLogo: null,
-    branding: process.env.LOCAL_BRANDING,
-    subBranding: process.env.LOCAL_SUB_BRANDING,
-    shouldFetchRemoteInfo : process.env.FETCH_REMOTE_BRANDING,
+    branding: process.env.REACT_APP_LOCAL_BRANDING,
+    subBranding: process.env.REACT_APP_LOCAL_SUB_BRANDING || "",
+    shouldFetchRemoteInfo : process.env.REACT_APP_FETCH_REMOTE_BRANDING,
     isFetching: false
 }
 
