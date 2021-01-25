@@ -8,6 +8,7 @@ import MapsContainer from "./MapPage";
 import NotFound from './NotFound'
 import { DashboardContainer } from "./management/DashboardPage";
 import { ManagementContainer } from "./management/ManagementPage";
+import { StoryContainer } from "./StoryPage";
 
 
 const { Route, HashRouter, Switch } = require("react-router-dom");
@@ -36,6 +37,9 @@ class HeaderFooterWrapperPage extends React.PureComponent {
 
                     {/* Headlines page */}
                     <Route exact path={[`${match.url}/`, `${match.url}/headlines`]} component={HeadlinesFeedsContainer} />
+
+                    {/* Story */}
+                    <Route exact path='/stories/:id' component={StoryContainer} />
 
                     <Route component={NotFound} />
                 </Switch>

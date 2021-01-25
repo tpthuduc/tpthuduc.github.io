@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import cn from "classnames";
-import {  Media, List, Card } from "tabler-react";
+import { Media, List, Card, Button } from "tabler-react";
 import SubHeadlineFeed from "./SubHeadlineFeed";
+import { Link } from "react-router-dom";
 
 type Props = {|
 +children ?: React.Node,
@@ -31,7 +32,9 @@ function HeadlineFeed({
     sourceUrl,
     sourceBaseUrl,
     subs,
+    storyId
 }: Props): React.Node {
+    const storyPath = storyId && ("/stories/" + storyId) || undefined;
     const classes = cn("p-5 no-outline", className);
     return (
         <Card>
@@ -39,13 +42,26 @@ function HeadlineFeed({
                 <img src={imageUrl} href={sourceUrl} className="img-headline img-center-crop " target="_blank" rel="noopener noreferrer" />
                 <Media.Body>
                     <Media.Heading>
-                        
+
                         <div className="div-headline-source">
                             <img src={sourceImageUrl} href={sourceBaseUrl} className="img-headline-sourcelogo" target="_blank" rel="noopener noreferrer" />
                             <a className="text-default text-bl txt-headline-source" href={sourceBaseUrl}>{sourceName}</a>
                             <span className="middle-dot-headline text-default text-bl">⬤</span>
                             <span className="text-default text-bl txt-headline-source">{date}</span>
-                        <a href={sourceUrl} className="h4 fe fe-activity float-right text-muted"></a>
+                            {storyPath && (
+                                <div className="float-right btn-story d-none d-md-block">
+                                    <Link to={{ pathname: storyPath }} >
+                                        <span className="input-group-btn ml-2">
+                                            <Button
+                                                size="sm"
+                                                color="vimeo"
+                                                type="submit"
+                                                icon="activity"
+                                                className="btn-story"
+                                            >Xem toàn cảnh</Button>
+                                        </span>
+                                    </Link>
+                                </div>)}
 
                         </div>
 
@@ -55,9 +71,24 @@ function HeadlineFeed({
                     </Media.Heading>
                     <div className="text-description-headline">{description}</div>
                     {subs && <Media.List>{subs}</Media.List>}
+
                 </Media.Body>
             </Media>
-            </Card>
+            {storyPath && (
+                <div className="text-center btn-story d-block d-md-none pb-4">
+                    <Link to={{ pathname: storyPath }} >
+                        <span className="input-group-btn ml-2">
+                            <Button
+                                size="sm"
+                                color="vimeo"
+                                type="submit"
+                                icon="activity"
+                                className="btn-story"
+                            >Xem toàn cảnh</Button>
+                        </span>
+                    </Link>
+                </div>)}
+        </Card >
     );
 }
 

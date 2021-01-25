@@ -161,3 +161,14 @@ vertical-align:middle;
   padding-left: 4px;
 
 }
+.blue {
+  color: #007aff;
+}
+
+.btn-story {
+  border-radius: 6px;
+  background-color: transparent;
+  border-color: #1ab7ea;
+  border-width: 2px;
+  color:#1ab7ea;
+}

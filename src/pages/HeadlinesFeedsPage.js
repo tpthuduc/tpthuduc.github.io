@@ -68,6 +68,7 @@ class HeadlinesFeedsPage extends React.Component {
               sourceBaseUrl={headline.source.baseUrl}
               sourceName={headline.source.displayName}
               sourceImageUrl={findSourceLogo(headline.source.name)}
+              storyId={items.length != 0 && newsList[i].id}
               subs={items && items.length > 0 &&
                 <React.Fragment>{
                   items.map((item, index) => (
@@ -133,15 +134,16 @@ class HeadlinesFeedsPage extends React.Component {
         </InfiniteScroll>
       </Page.Content >
     } else {
-      let emptyBody = (headlinesFeedsReducer && headlinesFeedsReducer.isFetching) ? (<div className="p-empty-body col-12 d-flex justify-content-center">
-        <div className="loader card" style={{
-          backgroundColor: "transparent",
-          backgroundClip: "unset",
-          border: "0",
-          borderRadius: "0",
-          boxShadow: "none"
-        }} />
-      </div>) : <EmptyPageContent onButtonClick={this.loadMoreData} />;
+      let emptyBody = (headlinesFeedsReducer && headlinesFeedsReducer.isFetching) ?
+        (<div className="p-empty-body col-12 d-flex justify-content-center">
+          <div className="loader card" style={{
+            backgroundColor: "transparent",
+            backgroundClip: "unset",
+            border: "0",
+            borderRadius: "0",
+            boxShadow: "none"
+          }} />
+        </div>) : <EmptyPageContent onButtonClick={this.loadMoreData} />;
       body = <Page.Content>
         {emptyBody}
       </Page.Content>
