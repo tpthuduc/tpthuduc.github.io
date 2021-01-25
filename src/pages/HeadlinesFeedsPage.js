@@ -11,7 +11,6 @@ import {
   Card,
 } from "tabler-react";
 
-import SiteWrapper from "../components/SiteWrapper.react";
 import HeadlineFeed from "../components/HeadlineFeed";
 import EmptyPageContent from "../components/Placeholder/EmptyPageContent";
 
