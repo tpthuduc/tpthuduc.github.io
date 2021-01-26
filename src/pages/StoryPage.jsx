@@ -19,7 +19,7 @@ class StoryPage extends React.Component {
       isFetching: false,
       isSuccess: true,
       data: {},
-      title: "Story"
+      title: "Toàn cảnh"
     }
   }
 

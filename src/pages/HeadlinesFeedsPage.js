@@ -69,6 +69,7 @@ class HeadlinesFeedsPage extends React.Component {
               sourceName={headline.source.displayName}
               sourceImageUrl={findSourceLogo(headline.source.name)}
               storyId={items.length != 0 && newsList[i].id}
+              isLargeItem={items && items.length > 0}
               subs={items && items.length > 0 &&
                 <React.Fragment>{
                   items.map((item, index) => (

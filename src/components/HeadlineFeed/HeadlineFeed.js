@@ -32,44 +32,44 @@ function HeadlineFeed({
     sourceUrl,
     sourceBaseUrl,
     subs,
-    storyId
+    storyId,
+    isLargeItem
 }: Props): React.Node {
     const storyPath = storyId && ("/stories/" + storyId) || undefined;
     const classes = cn("p-5 no-outline", className);
     return (
         <Card>
             <Media className={classes}>
-                <img src={imageUrl} href={sourceUrl} className="img-headline img-center-crop " target="_blank" rel="noopener noreferrer" />
+                <img src={imageUrl} href={sourceUrl} className={isLargeItem ? "img-headline img-center-crop d-none d-sm-block" : "img-headline img-center-crop"} target="_blank" rel="noopener noreferrer" />
                 <Media.Body>
-                    <Media.Heading>
-
-                        <div className="div-headline-source">
-                            <img src={sourceImageUrl} href={sourceBaseUrl} className="img-headline-sourcelogo" target="_blank" rel="noopener noreferrer" />
-                            <a className="text-default text-bl txt-headline-source" href={sourceBaseUrl}>{sourceName}</a>
-                            <span className="middle-dot-headline text-default text-bl">⬤</span>
+                    {isLargeItem && <img src={imageUrl} href={sourceUrl} className="d-block d-sm-none" target="_blank" rel="noopener noreferrer" />}
+                    <div className="div-headline-source">
+                        <img src={sourceImageUrl} href={sourceBaseUrl} className="img-headline-sourcelogo float-left" target="_blank" rel="noopener noreferrer" />
+                        <div className="float-left"><a className="text-default text-bl txt-headline-source" href={sourceBaseUrl}>{sourceName}</a></div>
+                        <div className="d-none d-sm-block float-left">
+                            <span className="middle-dot-headline text-default text-bl ">⬤</span>
                             <span className="text-default text-bl txt-headline-source">{date}</span>
-                            {storyPath && (
-                                <div className="float-right btn-story d-none d-md-block">
-                                    <Link to={{ pathname: storyPath }} >
-                                        <span className="input-group-btn ml-2">
-                                            <Button
-                                                size="sm"
-                                                color="vimeo"
-                                                type="submit"
-                                                icon="activity"
-                                                className="btn-story"
-                                            >Xem toàn cảnh</Button>
-                                        </span>
-                                    </Link>
-                                </div>)}
-
                         </div>
+                        {storyPath && (
+                            <div className="float-right btn-story d-none d-md-block">
+                                <Link to={{ pathname: storyPath }} >
+                                    <span className="input-group-btn ml-2">
+                                        <Button
+                                            size="sm"
+                                            color="vimeo"
+                                            type="submit"
+                                            icon="activity"
+                                            className="btn-story"
+                                        >Xem toàn cảnh</Button>
+                                    </span>
+                                </Link>
+                            </div>)}
+                    </div>
 
-                        <a href={sourceUrl} className="text-default text-bl" target="_blank" rel="noopener noreferrer">
-                            <h4 className="headline">{title}</h4>
-                        </a>
-                    </Media.Heading>
-                    <div className="text-description-headline">{description}</div>
+                    <a href={sourceUrl} className="text-default text-bl" target="_blank" rel="noopener noreferrer">
+                        <h4 className="headline">{title}</h4>
+                    </a>
+                    <div className="text-description-headline  d-none d-sm-block">{description}</div>
                     {subs && <Media.List>{subs}</Media.List>}
 
                 </Media.Body>
