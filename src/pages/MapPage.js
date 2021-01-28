@@ -60,29 +60,33 @@ function MapPage(props) {
       <SearchPlace />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={12}
+        zoom={13.5}
         center={center}
         options={options}
-        onClick={onMapClick}
         onLoad={onMapLoad}
+        onZoomChanged={onZoomChanged}
       >
         {markers.map(marker => <Marker
-          key={marker && marker.time ? marker.time.toISOString() : ""}
+          key={marker && marker.time ? marker.time : ""}
           position={{ lat: marker.lat, lng: marker.lng }}
           icon={GetIcon(marker)}
+          label={marker.data.name}
           onClick={() => setSelected(marker)}
         />)}
         {selected ? (<InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={() => setSelected(null)}>
           <div>
             <h4>{selected.data.name}</h4>
-
-            <p>{selected.data.numOfArticles}</p>
-            <p>{selected.data.time.toISOString()}</p>
-            <button>xem chi tiết ("/tags?place={selected.data.name}")</button>
+            <p>số lượng bài viết liên quan: <span style={{color: "red"}}>{selected.data.numOfArticles}</span></p>
+            <p>{selected.data.time}</p>
+            <button>xem chi tiết ("/tags?place={selected.data.tag.replaceAll(' ','+')}")</button>
           </div>
         </InfoWindow>) : null}
       </GoogleMap>
     </React.Fragment>)
+}
+
+function onZoomChanged(){
+  
 }
 
 function SearchPlace() {
@@ -106,7 +110,7 @@ function GetIcon(marker) {
 
 
   const result = {
-    url: '/circle.svg',
+    url: '/dot.png',
     scaledSize: new window.google.maps.Size(diameter, diameter),
     origin: new window.google.maps.Point(0, 0),
     anchor: new window.google.maps.Point(diameter / 2, diameter / 2),
