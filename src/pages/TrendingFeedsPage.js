@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchNewsList } from '../actions/TrendingFeedsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../util/ImageUtil';
-import { momentCalendar, momentFromNow } from '../util/CommonUtil';
+import { prettyDateTime } from '../util/CommonUtil';
 
 import {
   Page,
@@ -58,7 +58,7 @@ class TrendingFeedsPage extends React.Component {
               postHref={item.source.url}
               authorName={item.source.displayName}
               avatarImgSrc={findSourceLogo(item.source.name)}
-              date={momentFromNow(item.publicationDate)}
+              date={prettyDateTime(item.publicationDate)}
               iconName={"arrow-right"}
             />
           </Grid.Col>)
@@ -80,7 +80,7 @@ class TrendingFeedsPage extends React.Component {
             profileHref={newsList[0].source.baseUrl}
             authorName={newsList[0].source.displayName}
             avatarImgSrc={findSourceLogo(newsList[0].source.name)}
-            date={momentFromNow(newsList[0].publicationDate)}
+            date={prettyDateTime(newsList[0].publicationDate)}
             iconName={"arrow-right"}
           />
         </Grid.Col>);
@@ -98,7 +98,7 @@ class TrendingFeedsPage extends React.Component {
                 profileHref={newsList[1].source.baseUrl}
                 authorName={newsList[1].source.displayName}
                 avatarImgSrc={findSourceLogo(newsList[1].source.name)}
-                date={momentFromNow(newsList[1].publicationDate)}
+                date={prettyDateTime(newsList[1].publicationDate)}
                 iconName={"arrow-right"}
               />
             </Grid.Col>
@@ -111,7 +111,7 @@ class TrendingFeedsPage extends React.Component {
                 profileHref={newsList[2].source.baseUrl}
                 authorName={newsList[2].source.displayName}
                 avatarImgSrc={findSourceLogo(newsList[2].source.name)}
-                date={momentFromNow(newsList[2].publicationDate)}
+                date={prettyDateTime(newsList[2].publicationDate)}
                 iconName={"arrow-right"}
               />
             </Grid.Col>
@@ -132,7 +132,7 @@ class TrendingFeedsPage extends React.Component {
               profileHref={item.source.baseUrl}
               authorName={item.source.displayName}
               avatarImgSrc={findSourceLogo(item.source.name)}
-              date={momentFromNow(item.publicationDate)}
+              date={prettyDateTime(item.publicationDate)}
               iconName={"arrow-right"}
             />
           </Grid.Col>)
@@ -152,7 +152,7 @@ class TrendingFeedsPage extends React.Component {
               profileHref={item.source.baseUrl}
               authorName={item.source.displayName}
               avatarImgSrc={findSourceLogo(item.source.name)}
-              date={momentCalendar(item.publicationDate)}
+              date={prettyDateTime(item.publicationDate)}
               iconName={"arrow-right"}
             />
           </Grid.Col>

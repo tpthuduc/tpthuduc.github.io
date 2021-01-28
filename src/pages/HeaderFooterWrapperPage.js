@@ -9,6 +9,8 @@ import NotFound from './NotFound'
 import { DashboardContainer } from "./management/DashboardPage";
 import { ManagementContainer } from "./management/ManagementPage";
 import { StoryContainer } from "./StoryPage";
+import { LatestNewsContainer } from "./LatestNewsPage";
+import { NewsPageContainer } from "./management/NewsPage";
 
 
 const { Route, HashRouter, Switch } = require("react-router-dom");
@@ -40,6 +42,11 @@ class HeaderFooterWrapperPage extends React.PureComponent {
 
                     {/* Story */}
                     <Route exact path='/stories/:id' component={StoryContainer} />
+
+                    {/* Latest */}
+                    <Route exact path='/topics/latest' component={LatestNewsContainer} />
+
+                    <Route path='/topics/:id' component={NewsPageContainer} />
 
                     <Route component={NotFound} />
                 </Switch>

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchNewsList } from '../actions/HeadlinesFeedsAction';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../util/ImageUtil';
-import { momentFromNow } from '../util/CommonUtil';
+import { prettyDateTime } from '../util/CommonUtil';
 
 import {
   Page,
@@ -64,7 +64,7 @@ class HeadlinesFeedsPage extends React.Component {
               sourceUrl={headline.source.url}
               description={headline.summary}
               imageUrl={headline.thumbnail}
-              date={momentFromNow(headline.publicationDate)}
+              date={prettyDateTime(headline.publicationDate)}
               sourceBaseUrl={headline.source.baseUrl}
               sourceName={headline.source.displayName}
               sourceImageUrl={findSourceLogo(headline.source.name)}
@@ -80,7 +80,7 @@ class HeadlinesFeedsPage extends React.Component {
                       sourceName={item.source.displayName}
                       sourceBaseUrl={item.source.baseUrl}
                       sourceImageUrl={findSourceLogo(item.source.name)}
-                      date={momentFromNow(item.publicationDate)}
+                      date={prettyDateTime(item.publicationDate)}
                     />))
                 }
                 </React.Fragment>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { findSourceLogo } from '../util/ImageUtil';
-import { momentFromNow } from '../util/CommonUtil';
+import { prettyDateTime } from '../util/CommonUtil';
 
 import {
     Page,
@@ -15,14 +15,13 @@ import EmptyPageContent from "../components/Placeholder/EmptyPageContent";
 
 export class NewsTopic extends React.Component {
     render() {
-        const { isFetching, title, list, onRetry, isSuccess } = this.props;
+        const { isFetching, title, list, isSuccess, hasMore, isFetchingLoadMore, onLoadMore, onReload } = this.props;
         const newslist = [...(list && Array.isArray(list) ? list : [])];
 
-
-        if (isFetching || !isSuccess) {
+        if ((!list || list.length == 0) && (isFetching || !isSuccess)) {
             /* there are no item in list */
             const body = (
-                <EmptyPageContent isFetching={isFetching} onButtonClick={this.onRetry} />
+                <EmptyPageContent isFetching={isFetching} onButtonClick={onReload} />
             )
             return <Page.Content>{body}</Page.Content>
         } else {
@@ -37,7 +36,7 @@ export class NewsTopic extends React.Component {
                             sourceUrl={item.source.url}
                             description={item.summary}
                             imageUrl={item.thumbnail}
-                            date={momentFromNow(item.publicationDate)}
+                            date={prettyDateTime(item.publicationDate)}
                             sourceBaseUrl={item.source.baseUrl}
                             sourceName={item.source.displayName}
                             sourceImageUrl={findSourceLogo(item.source.name)}
@@ -51,7 +50,7 @@ export class NewsTopic extends React.Component {
                                             sourceName={subItem.source.displayName}
                                             sourceBaseUrl={subItem.source.baseUrl}
                                             sourceImageUrl={findSourceLogo(subItem.source.name)}
-                                            date={momentFromNow(subItem.publicationDate)}
+                                            date={prettyDateTime(subItem.publicationDate)}
                                         />))
                                 }
                                 </React.Fragment>
@@ -65,8 +64,8 @@ export class NewsTopic extends React.Component {
                         height: "auto", overflow: "disabled"
                     }}
                     dataLength={newslist.length}
-                    next={this.loadMoreData}
-                    hasMore={false}
+                    next={onLoadMore}
+                    hasMore={hasMore}
                     loader={
                         <div className="col-12 d-flex justify-content-center">
                             <div className="loader card" style={{

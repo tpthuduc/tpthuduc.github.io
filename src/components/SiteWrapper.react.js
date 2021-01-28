@@ -10,7 +10,7 @@ import { LogoutUser } from "../actions/AuthAction";
 import InnerSiteWrapper from "./base/site/InnerSiteWrapper.react";
 const navBarItems = [
   {
-    value: "Trang chủ",
+    value: "Tin chính",
     to: "/",
     icon: "home",
     LinkComponent: withRouter(NavLink),
@@ -20,6 +20,13 @@ const navBarItems = [
     value: "Xu hướng",
     icon: "trending-up",
     to: "/trendings",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Tin mới",
+    icon: "refresh-ccw",
+    to: "/topics/latest",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },

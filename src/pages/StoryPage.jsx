@@ -40,7 +40,7 @@ class StoryPage extends React.Component {
   }
 
   render() {
-    return <NewsTopic title={this.state.title} isFetching={this.state.isFetching} isSuccess={this.state.isSuccess} list={this.state.data && this.state.data.data || []} onRetry={this.reload} />
+    return <NewsTopic title={this.state.title} isFetching={this.state.isFetching} isSuccess={this.state.isSuccess} list={this.state.data && this.state.data.data || []} onReload={this.reload}/>
   }
 }
 
