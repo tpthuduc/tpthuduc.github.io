@@ -2,19 +2,24 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { NewsTopic } from "components/NewsTopic";
-import { TitleSharp } from "@material-ui/icons";
 import { apiGet } from "util/ApiUtil";
 
-class LatestNewsPage extends React.Component {
+class TagPage extends React.Component {
   constructor(props) {
     super(props);
+    const search = this.props.location.search;
+    const { match } = this.props;
+    //const params = new URLSearchParams(search);
+    //this.id = (params.get('id') || "").toString();
+    const query = match && match.params.id || "0";
     this.state = {
+      query,
       isFetching: false,
       isSuccess: true,
       list: [],
-      hasMore: true,
       page: 1,
-      title: "Tin mới"
+      title: query,
+      hasMore: true,
     }
   }
 
@@ -24,11 +29,18 @@ class LatestNewsPage extends React.Component {
 
   async reload(page = 1, loadMore = false) {
     this.setState({ ...this.state, isFetching: true });
+
     if (page < 1) {
       page = 1;
     }
 
-    const response = await apiGet("/news/feed?order_by=publicationDate&sort=desc&page=" + this.page);
+    const response = this.state.query && this.state.query != "0" && await apiGet("/news/feed?query=" + this.state.query + "&page=" + page);
+    if (response && response.isSuccess && response.data) {
+      this.setState({ ...this.state, isFetching: false, isSuccess: true, data: response.data });
+    } else {
+      this.setState({ ...this.state, isFetching: false, isSuccess: false, data: {} });
+    }
+
     if (response && response.isSuccess && response.data) {
       const list = (!loadMore) ? (response.data || []) : [...(this.state.list || []), ...(response.data || [])];
       const hasMore = response.data && Array.isArray(response.data) && response.data.length > 0;
@@ -54,6 +66,6 @@ function mapStateToProps({ authReducer }) {
   }
 }
 
-export const LatestNewsContainer = connect(
+export const TagPageContainer = connect(
   mapStateToProps
-)(LatestNewsPage);
+)(TagPage);

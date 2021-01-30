@@ -50,28 +50,27 @@ export function loadNewsDetail(id) {
     }
 }
 
-export function fetchNewsList(page) {
-    if (!page || page == 0) {
-        return dispatch => {
-            // mark as refreshing
-            dispatch(requestNewsListReload())
+async function dispatchFetchData(dispatch, page) {
+    // mark as refreshing
+    dispatch(requestNewsListReload());
+    const isLoadMore = page && page != 0;
+    page = (Number(page || 0) || 0) + 1;
+    let response = await apiGet("/news/feed/similarity?page=" + page);
 
-            return apiGet("/news/feed/similarity")
-                .then(result => {
-                    if (result.isSuccess) {
-                        dispatch(receiveNewsListReload(result.data, result.statusCode, result.message));
-                    } else {
-                        // try 1 more time
-                        apiGet("/news/feed/similarity").then(result2 => dispatch(receiveNewsListReload(result2.data, result2.statusCode, result2.message)));
-                    }
-                })
-            };
-        } else {
-            return dispatch => {
-                // mark as refreshing
-                dispatch(requestNewsListLoadMore())
-                return apiGet("/news/feed/similarity?page=" + (page + 1)).then(result => dispatch(receiveNewsListLoadMore(page + 1, result.data, result.statusCode, result.message)));
-            }
-        }
+    // retry one more time
+    if (!response.isSuccess) {
+        response = await apiGet("/news/feed/similarity?page=" + page);
     }
+
+    if (!isLoadMore) {
+        dispatch(receiveNewsListReload(response.data, response.statusCode, response.message));
+    } else {
+        dispatch(receiveNewsListLoadMore(page, response.data, response.statusCode, response.message))
+    }
+
+}
+
+export function fetchNewsList(page) {
+    return dispatch => dispatchFetchData(dispatch, page);
+}
 

@@ -33,7 +33,7 @@ class NewsPage extends React.Component {
             page = 1;
         }
 
-        const response = await apiGet("/news/" + this.state.path + "?page=" + this.page);
+        const response = await apiGet("/news/" + this.state.path + "?page=" + page);
         if (response && response.isSuccess && response.data) {
             const list = (!loadMore) ? (response.data || []) : [...(this.state.list || []), ...(response.data || [])];
             const hasMore = response.data && Array.isArray(response.data) && response.data.length > 0;

@@ -2,11 +2,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { NewsTopic } from "components/NewsTopic";
-import { TitleSharp } from "@material-ui/icons";
 import { apiGet } from "util/ApiUtil";
 
-
-class StoryPage extends React.Component {
+class SimilarityPage extends React.Component {
   constructor(props) {
     super(props);
     const search = this.props.location.search;
@@ -50,6 +48,6 @@ function mapStateToProps({ authReducer }) {
   }
 }
 
-export const StoryContainer = connect(
+export const SimilarityPageContainer = connect(
   mapStateToProps
-)(StoryPage);
+)(SimilarityPage);

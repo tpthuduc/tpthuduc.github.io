@@ -35,7 +35,7 @@ function HeadlineFeed({
     storyId,
     isLargeItem
 }: Props): React.Node {
-    const storyPath = storyId && ("/stories/" + storyId) || undefined;
+    const storyPath = storyId && ("/stories/d/" + storyId) || undefined;
     const classes = cn("p-5 no-outline", className);
     return (
         <Card>
