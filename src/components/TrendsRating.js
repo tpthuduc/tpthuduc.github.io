@@ -33,9 +33,9 @@ class TrendsRating extends React.Component {
 
     getTrendsText(item, index) {
         if (item.status < 0) {
-            return (index <= 4) ? item.text + " ▼" : item.text + " 🡣";
+            return (index <= 4 || this.props.collapsed) ? item.text + " ▼" : item.text + " 🡣";
         } else if (item.status >= 0) {
-            return (index <= 4) ? item.text + " ▲" : item.text + " 🡡";
+            return (index <= 4 || this.props.collapsed) ? item.text + " ▲" : item.text + " 🡡";
         } else return item.text + " ✦";
     }
 
