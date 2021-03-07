@@ -40,19 +40,22 @@ const navBarItems = [
   {
     value: "Quản trị (dành cho quản trị viên)",
     icon: "grid",
+    to: "/management/setting",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
 
-    subItems: [
-      {
-        value: "Tổng quan", to: "/management", LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Thống kê", to: "/management/analytics", LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Thiết lập", to: "/management/setting", LinkComponent: withRouter(NavLink)
-      },
-
-    ],
+    /*  subItems: [
+       {
+         value: "Tổng quan", to: "/management", LinkComponent: withRouter(NavLink),
+       },
+       {
+         value: "Thống kê", to: "/management/analytics", LinkComponent: withRouter(NavLink),
+       },
+       {
+         value: "Thiết lập", to: "/management/setting", LinkComponent: withRouter(NavLink)
+       },
+ 
+     ], */
   }
 
 
